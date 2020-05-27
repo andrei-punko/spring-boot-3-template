@@ -1,4 +1,4 @@
-package by.andd3dfx.springboottemplate;
+package by.andd3dfx.templateapp;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
