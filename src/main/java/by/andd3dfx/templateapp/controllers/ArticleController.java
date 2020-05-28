@@ -41,7 +41,6 @@ public class ArticleController {
     @ApiOperation(value = "Create new article", response = ArticleDto.class)
     @ApiResponses(value = {
         @ApiResponse(code = 201, message = "Article successfully created"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource")
     })
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
@@ -56,7 +55,6 @@ public class ArticleController {
     @ApiOperation(value = "Get article by id", response = ArticleDto.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Article successfully retrieved"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
         @ApiResponse(code = 404, message = "Article not found"),
     })
     @GetMapping("/{id}")
@@ -71,7 +69,6 @@ public class ArticleController {
     @ApiOperation("Update article")
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Article successfully updated"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
         @ApiResponse(code = 404, message = "Article not found"),
     })
     @PatchMapping("/{id}")
@@ -89,7 +86,6 @@ public class ArticleController {
     @ApiOperation("Delete article by id")
     @ApiResponses(value = {
         @ApiResponse(code = 204, message = "Article successfully deleted"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
         @ApiResponse(code = 404, message = "Article not found"),
     })
     @DeleteMapping("/{id}")
@@ -117,7 +113,6 @@ public class ArticleController {
     @ApiOperation(value = "Read articles paged", response = Page.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Articles successfully retrieved"),
-        @ApiResponse(code = 401, message = "You are not authorized to view the resource")
     })
     @GetMapping
     // Workaround for Swagger bug, according to https://github.com/springfox/springfox/issues/2623#issuecomment-414297583
