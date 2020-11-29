@@ -1,0 +1,39 @@
+version: "3"
+services:
+  postgres:
+    image: postgres:9.6.15-alpine
+    network_mode: bridge
+    container_name: postgres
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    expose:
+      - 5432
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_DB=templatedb
+      - POSTGRES_USER=template-app-user
+      - POSTGRES_PASSWORD=template-app-password
+
+  backend-template-app:
+    image: backend-template-app:latest
+    network_mode: bridge
+    container_name: backend-template-app
+    labels:
+      kompose.image-pull-policy: Never
+      kompose.service.type: LoadBalancer
+    expose:
+      - 9080
+    ports:
+      - 9080:9080
+    environment:
+      - DB_URL=jdbc:postgresql://postgres:5432/templatedb
+      - DB_USER=template-app-user
+      - DB_PASSWORD=template-app-password
+    depends_on:
+      - postgres
+    links:
+      - postgres
+
+volumes:
+  postgres-data:
