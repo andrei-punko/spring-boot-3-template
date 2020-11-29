@@ -5,26 +5,41 @@ Includes web-server on port 9080 with `/articles` endpoint exposed.
 Supports CRUD set of operations and R with pagination
 
 ## Prerequisities:
-- JDK 8
+- JDK 11
 - Maven 3
 
 ## How to build:
-`mvn clean install`
+    mvn clean install
 
-## How to start:
-- Use [run.bat](./run.bat) script or
-- Use next command:  
-java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
- --spring.datasource.url=jdbc:h2:mem:testdb \
- --spring.datasource.username=sa \
- --spring.datasource.password=password \
- --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
-- or use Maven:
-mvn spring-boot:run -Dspring-boot.run.arguments=\
- --spring.datasource.url=jdbc:h2:mem:testdb,\
- --spring.datasource.username=sa,\
- --spring.datasource.password=password,\
- --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+#### Build Docker image with application inside:
+    docker build ./ -t backend-template-app
+
+## Start application using starting script:
+Use [run.bat](./run.bat) script
+
+## Start application (vs in-memory DB H2) by running executable jar:
+    java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
+     --spring.datasource.url=jdbc:h2:mem:testdb \
+     --spring.datasource.username=sa \
+     --spring.datasource.password=password \
+     --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+
+## Same thing but using Spring profile to determine properties:
+    java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
+     --spring.profiles.active=dev
+
+## Start application (vs in-memory DB H2) using Maven:
+    mvn spring-boot:run -Dspring-boot.run.arguments="\
+    --spring.datasource.url=jdbc:h2:mem:testdb \
+    --spring.datasource.username=sa \
+    --spring.datasource.password=password \
+    --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"
+
+## Same thing but using Spring profile to determine properties:
+    mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
+
+## Start application using set of two Docker containers - one with Postgres DB and another with application:
+    docker-compose up
 
 ## Link for quick check:  
 http://localhost:9080/articles
