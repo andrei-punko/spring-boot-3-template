@@ -10,6 +10,9 @@ import org.testcontainers.lifecycle.Startables;
 import java.util.Map;
 import java.util.stream.Stream;
 
+/**
+ * According to https://reflectoring.io/spring-boot-flyway-testcontainers/
+ */
 public class IntegrationTestInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
     private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:9.6.20");
