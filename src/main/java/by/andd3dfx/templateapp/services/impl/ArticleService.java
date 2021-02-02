@@ -19,12 +19,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-@Transactional
 public class ArticleService implements IArticleService {
 
     private final ArticleRepository articleRepository;
     private final ArticleMapper articleMapper;
 
+    @Transactional
     @Override
     public ArticleDto create(ArticleDto articleDto) {
         Article entity = articleMapper.toArticle(articleDto);
@@ -32,6 +32,7 @@ public class ArticleService implements IArticleService {
         return articleMapper.toArticleDto(savedEntity);
     }
 
+    @Transactional(readOnly = true)
     @Override
     public ArticleDto get(Long id) {
         return articleRepository.findById(id)
@@ -39,6 +40,7 @@ public class ArticleService implements IArticleService {
             .orElseThrow(() -> new ArticleNotFoundException(id));
     }
 
+    @Transactional
     @Override
     public void update(Long id, ArticleUpdateDto articleUpdateDto) {
         articleRepository.findById(id)
@@ -49,6 +51,7 @@ public class ArticleService implements IArticleService {
             }).orElseThrow(() -> new ArticleNotFoundException(id));
     }
 
+    @Transactional
     @Override
     public void delete(Long id) {
         try {
@@ -58,6 +61,7 @@ public class ArticleService implements IArticleService {
         }
     }
 
+    @Transactional(readOnly = true)
     @Override
     public Page<ArticleDto> getAll(Pageable pageable) {
         final Page<Article> pagedResult = articleRepository.findAll(pageable);
