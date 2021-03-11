@@ -50,7 +50,7 @@ http://localhost:9080/swagger-ui.html
 
 ## Useful CURL commands:
 - New article addition:  
-`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": { "id": 1 } }' -X POST http://localhost:9080/articles`
+`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/articles`
 
 - Get existing article:  
 `curl -i http://localhost:9080/articles/1`
@@ -59,7 +59,7 @@ http://localhost:9080/swagger-ui.html
 `curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/articles/2`
 
 - Get list of articles with pagination support:  
-`curl -i 'http://localhost:9080/articles?size=2&page=4&sort=author.firstName,DESC'`
+`curl -i 'http://localhost:9080/articles?size=2&page=4&sort=author,DESC'`
 
 - Deletion of article:  
 `curl -i -X DELETE http://localhost:9080/articles/1`

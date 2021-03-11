@@ -19,9 +19,6 @@ services:
     image: backend-template-app:latest
     network_mode: bridge
     container_name: backend-template-app
-    labels:
-      kompose.image-pull-policy: Never
-      kompose.service.type: LoadBalancer
     expose:
       - 9080
     ports:
