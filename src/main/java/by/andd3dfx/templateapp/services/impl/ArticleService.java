@@ -63,6 +63,14 @@ public class ArticleService implements IArticleService {
 
     @Transactional(readOnly = true)
     @Override
+    public List<ArticleDto> getAll(Integer pageNo, Integer pageSize, String sortBy) {
+        Pageable pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
+        Page<Article> pagedResult = articleRepository.findAll(pageRequest);
+        return articleMapper.toArticleDtoList(pagedResult.getContent());
+    }
+
+    @Transactional(readOnly = true)
+    @Override
     public Page<ArticleDto> getAll(Pageable pageable) {
         final Page<Article> pagedResult = articleRepository.findAll(pageable);
         return pagedResult.map(articleMapper::toArticleDto);
