@@ -23,7 +23,8 @@ Use [run.bat](./run.bat) script
      --spring.datasource.url=jdbc:h2:mem:testdb \
      --spring.datasource.username=sa \
      --spring.datasource.password=password \
-     --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect
+     --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect \
+     --spring.datasource.driver-class-name=org.h2.Driver
 
 ## Same thing but using Spring profile to determine properties:
     java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
@@ -34,7 +35,8 @@ Use [run.bat](./run.bat) script
     --spring.datasource.url=jdbc:h2:mem:testdb \
     --spring.datasource.username=sa \
     --spring.datasource.password=password \
-    --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect"
+    --spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.H2Dialect \
+    --spring.datasource.driver-class-name=org.h2.Driver"
 
 ## Same thing but using Spring profile to determine properties:
     mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
