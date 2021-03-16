@@ -1,5 +1,6 @@
 package by.andd3dfx.templateapp.dto;
 
+import by.andd3dfx.templateapp.validators.OnlyOneFieldModified;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.annotations.ApiModelProperty;
@@ -8,6 +9,7 @@ import lombok.Data;
 
 @Data
 @JsonInclude(Include.NON_NULL)
+@OnlyOneFieldModified
 public class ArticleUpdateDto {
 
     @Size(min = 1, max = 100, message = "Title length must be between 1 and 100")
