@@ -38,7 +38,8 @@ public class IntegrationTestInitializer implements ApplicationContextInitializer
         return Map.of(
                 "DB_URL", postgres.getJdbcUrl(),
                 "DB_USERNAME", postgres.getUsername(),
-                "DB_PASSWORD", postgres.getPassword()
+                "DB_PASSWORD", postgres.getPassword(),
+                "DRIVER_CLASS_NAME", postgres.getDriverClassName()
         );
     }
 }
