@@ -12,6 +12,7 @@
 	<groupId>by.andd3dfx</groupId>
 	<artifactId>spring-boot-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+
 	<name>spring-boot-template</name>
 	<description>Template project for Spring Boot</description>
 
@@ -21,6 +22,7 @@
 		<lombok.version>1.18.10</lombok.version>
 		<swagger.version>2.9.2</swagger.version>
 		<swagger-annotations.version>1.5.21</swagger-annotations.version>
+		<testcontainers.version>1.15.2</testcontainers.version>
 	</properties>
 
 	<dependencies>
@@ -97,8 +99,8 @@
 			<artifactId>flyway-core</artifactId>
 		</dependency>
 		<dependency>
-			<groupId>com.h2database</groupId>
-			<artifactId>h2</artifactId>
+			<groupId>org.postgresql</groupId>
+			<artifactId>postgresql</artifactId>
 		</dependency>
 
 		<dependency>
@@ -107,8 +109,8 @@
 			<scope>test</scope>
 			<exclusions>
 				<exclusion>
-					<groupId>org.junit.vintage</groupId>
-					<artifactId>junit-vintage-engine</artifactId>
+					<groupId>junit</groupId>
+					<artifactId>junit</artifactId>
 				</exclusion>
 			</exclusions>
 		</dependency>
@@ -116,13 +118,19 @@
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>1.15.1</version>
+			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>org.postgresql</groupId>
-			<artifactId>postgresql</artifactId>
-			<version>42.2.5</version>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>testcontainers</artifactId>
+			<version>${testcontainers.version}</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.testcontainers</groupId>
+			<artifactId>junit-jupiter</artifactId>
+			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>

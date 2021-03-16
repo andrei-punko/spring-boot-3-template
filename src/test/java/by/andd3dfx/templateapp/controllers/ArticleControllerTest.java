@@ -1,5 +1,6 @@
 package by.andd3dfx.templateapp.controllers;
 
+import by.andd3dfx.templateapp.IntegrationTestInitializer;
 import by.andd3dfx.templateapp.SpringBootTemplateApplication;
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
@@ -11,6 +12,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.converter.HttpMessageConverter;
 import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
+import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
@@ -32,7 +34,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
 
-@SpringBootTest(classes = SpringBootTemplateApplication.class)
+@ContextConfiguration(initializers = IntegrationTestInitializer.class)
+@SpringBootTest
 @WebAppConfiguration
 class ArticleControllerTest {
 
