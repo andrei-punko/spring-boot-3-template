@@ -1,0 +1,18 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="App with dev profile" type="Application" factoryName="Application">
+    <envs>
+      <env name="spring.profiles.active" value="dev" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="by.andd3dfx.templateapp.SpringBootTemplateApplication" />
+    <module name="spring-boot-template" />
+    <extension name="coverage">
+      <pattern>
+        <option name="PATTERN" value="by.andd3dfx.templateapp.*" />
+        <option name="ENABLED" value="true" />
+      </pattern>
+    </extension>
+    <method v="2">
+      <option name="Make" enabled="true" />
+    </method>
+  </configuration>
+</component>
