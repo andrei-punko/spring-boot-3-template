@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.exceptions;
+package by.andd3dfx.templateapp.error.exception;
 
 public class ArticleNotFoundException extends NotFoundException {
 
