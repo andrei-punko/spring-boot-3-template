@@ -1,6 +1,7 @@
 
 # Template for Spring Boot application
 ![Java CI with Maven](https://github.com/andrei-punko/spring-boot-template/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Coverage](.github/badges/jacoco.svg)](jacoco.svg)
 
 Includes web-server on port 9080 with `/articles` endpoint exposed.  
 Supports CRUD set of operations and R with pagination
