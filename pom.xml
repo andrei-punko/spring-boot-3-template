@@ -191,6 +191,13 @@
 					</goals>
 				  </execution>
 				</executions>
+				<configuration>
+					<excludes>
+						<exclude>**/configs/*</exclude>
+						<exclude>**/dto/*</exclude>
+						<exclude>**/entities/*</exclude>
+					</excludes>
+				</configuration>
 			</plugin>
 		</plugins>
 	</build>
