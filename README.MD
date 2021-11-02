@@ -2,13 +2,13 @@
 # Template for Spring Boot application
 
 ![Java CI with Maven](https://github.com/andrei-punko/spring-boot-template/workflows/Java%20CI%20with%20Maven/badge.svg)
-[![Coverage](.github/badges/jacoco.svg)](jacoco.svg)
-[![Branches](.github/badges/branches.svg)](branches.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
+[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
 
 Includes web-server on port 9080 with `/articles` endpoint exposed.  
 Supports CRUD set of operations and R with pagination
 
-## Prerequisities:
+## Prerequisites:
 - JDK 11
 - Maven 3
 
