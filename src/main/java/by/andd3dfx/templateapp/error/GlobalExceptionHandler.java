@@ -2,7 +2,7 @@ package by.andd3dfx.templateapp.error;
 
 import by.andd3dfx.templateapp.error.exception.NotFoundException;
 import by.andd3dfx.templateapp.error.exception.UnauthorizedException;
-import by.andd3dfx.templateapp.error.message.ExceptionResponse;
+import by.andd3dfx.templateapp.error.dto.ExceptionResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.error.message;
+package by.andd3dfx.templateapp.error.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
