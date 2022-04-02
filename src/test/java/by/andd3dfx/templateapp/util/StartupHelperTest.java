@@ -13,6 +13,7 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 class StartupHelperTest {
+
     private MemoryAppender memoryAppender;
 
     @BeforeEach

@@ -1,7 +1,5 @@
 package by.andd3dfx.templateapp.util;
 
-import lombok.AccessLevel;
-import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.env.Environment;
@@ -21,7 +19,6 @@ import java.net.UnknownHostException;
  * <pre/>
  */
 @Slf4j
-@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public final class StartupHelper {
 
     public static void logApplicationStartup(Environment env) {

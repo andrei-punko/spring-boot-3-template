@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
  * Class for testing purposes to catch logs.
  */
 public class MemoryAppender extends ListAppender<ILoggingEvent> {
+
     public void reset() {
         this.list.clear();
     }

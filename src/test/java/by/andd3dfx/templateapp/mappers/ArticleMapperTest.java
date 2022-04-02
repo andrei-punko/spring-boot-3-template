@@ -23,6 +23,7 @@ class ArticleMapperTest {
         Article article = buildArticle();
 
         ArticleDto articleDto = mapper.toArticleDto(article);
+
         checkCompareAssertions(articleDto, article);
     }
 
@@ -37,6 +38,7 @@ class ArticleMapperTest {
         List<Article> articles = Arrays.asList(article);
 
         List<ArticleDto> articleDtoItems = mapper.toArticleDtoList(articles);
+
         assertThat("Wrong result list size", articleDtoItems.size(), is(1));
         checkCompareAssertions(articleDtoItems.get(0), article);
     }
@@ -51,6 +53,7 @@ class ArticleMapperTest {
         ArticleDto articleDto = buildArticleDto();
 
         Article article = mapper.toArticle(articleDto);
+
         checkCompareAssertions(articleDto, article);
     }
 
