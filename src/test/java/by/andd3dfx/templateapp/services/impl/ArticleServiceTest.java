@@ -58,10 +58,10 @@ class ArticleServiceTest {
 
     @Test
     void create() {
-        ArticleDto articleDto = new ArticleDto();
-        Article article = new Article();
-        Article updatedArticle = new Article();
-        ArticleDto updatedArticleDto = new ArticleDto();
+        ArticleDto articleDto = ArticleDto.builder().build();
+        Article article = Article.builder().build();
+        Article updatedArticle = Article.builder().build();
+        ArticleDto updatedArticleDto = ArticleDto.builder().build();
 
         Mockito.when(articleMapperMock.toArticle(articleDto)).thenReturn(article);
         Mockito.when(articleRepositoryMock.save(article)).thenReturn(updatedArticle);
@@ -113,8 +113,9 @@ class ArticleServiceTest {
         Article savedArticle = new Article();
         Optional<Article> optionalArticle = Optional.of(article);
         ArticleUpdateDto articleUpdateDto = new ArticleUpdateDto();
-        ArticleDto updatedArticleDto = new ArticleDto();
-        updatedArticleDto.setTitle("New title");
+        ArticleDto updatedArticleDto = ArticleDto.builder()
+                .title("New title")
+                .build();
 
         Mockito.when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
         Mockito.when(articleRepositoryMock.save(article)).thenReturn(savedArticle);

@@ -10,5 +10,6 @@ class SpringBootTemplateApplicationTests {
 
 	@Test
 	void contextLoads() {
+		// do nothing, this test for just check is context up
 	}
 }

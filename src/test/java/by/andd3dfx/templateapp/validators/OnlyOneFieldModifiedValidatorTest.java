@@ -19,55 +19,60 @@ class OnlyOneFieldModifiedValidatorTest {
     private ConstraintValidatorContext contextMock;
 
     @InjectMocks
-    private OnlyOneFieldModifiedValidator onlyOneFieldModifiedValidator; // constructor injection
+    private OnlyOneFieldModifiedValidator onlyOneFieldModifiedValidator;
 
     @Test
     void isValidWhenNoFieldsChanged() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
+        var articleUpdateDto = new ArticleUpdateDto();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(false));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(false));
     }
 
     @Test
     void isValidWhenOneFieldChanged_ForTitle() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
-        article.setTitle("Some Title");
+        var articleUpdateDto = ArticleUpdateDto.builder()
+                .title("Some Title")
+                .build();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(true));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(true));
     }
 
     @Test
     void isValidWhenOneFieldChanged_ForSummary() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
-        article.setSummary("Some Summary");
+        var articleUpdateDto = ArticleUpdateDto.builder()
+                .summary("Some Summary")
+                .build();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(true));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(true));
     }
 
     @Test
     void isValidWhenOneFieldChanged_ForText() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
-        article.setText("Some Text");
+        var articleUpdateDto = ArticleUpdateDto.builder()
+                .text("Some Text")
+                .build();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(true));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(true));
     }
 
     @Test
     void isValidWhenTwoFieldsChanged() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
-        article.setTitle("Some Title");
-        article.setSummary("Some Summary");
+        var articleUpdateDto = ArticleUpdateDto.builder()
+                .title("Some Title")
+                .summary("Some Summary")
+                .build();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(false));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(false));
     }
 
     @Test
     void isValidWhenThreeFieldsChanged() {
-        ArticleUpdateDto article = new ArticleUpdateDto();
-        article.setTitle("Some Title");
-        article.setSummary("Some Summary");
-        article.setText("Some Text");
+        var articleUpdateDto = ArticleUpdateDto.builder()
+                .title("Some Title")
+                .summary("Some Summary")
+                .text("Some Text")
+                .build();
 
-        assertThat(onlyOneFieldModifiedValidator.isValid(article, contextMock), is(false));
+        assertThat(onlyOneFieldModifiedValidator.isValid(articleUpdateDto, contextMock), is(false));
     }
 }

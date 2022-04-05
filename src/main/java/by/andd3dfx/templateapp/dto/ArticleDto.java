@@ -3,12 +3,19 @@ package by.andd3dfx.templateapp.dto;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.annotations.ApiModelProperty;
-import java.time.LocalDateTime;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Null;
 import javax.validation.constraints.Size;
-import lombok.Data;
+import java.time.LocalDateTime;
 
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Data
 @JsonInclude(Include.NON_NULL)
 public class ArticleDto {
@@ -43,3 +50,4 @@ public class ArticleDto {
     @ApiModelProperty(notes = "Date & time of article update")
     private LocalDateTime dateUpdated;
 }
+
