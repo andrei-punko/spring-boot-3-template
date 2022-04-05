@@ -6,7 +6,6 @@ import static org.hamcrest.CoreMatchers.notNullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
-import static org.springframework.test.util.AssertionErrors.assertNotNull;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
@@ -18,14 +17,13 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 import by.andd3dfx.templateapp.IntegrationTestInitializer;
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.converter.HttpMessageConverter;
-import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.mock.http.MockHttpOutputMessage;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
@@ -38,16 +36,11 @@ import org.springframework.web.context.WebApplicationContext;
 class ArticleControllerTest {
 
     private MockMvc mockMvc;
-    private HttpMessageConverter httpMessageConverter;
 
     @Autowired
     private WebApplicationContext webApplicationContext;
-
     @Autowired
-    void setConverter(MappingJackson2HttpMessageConverter converter) {
-        httpMessageConverter = converter;
-        assertNotNull("the JSON message converter must not be null", httpMessageConverter);
-    }
+    private ObjectMapper objectMapper;
 
     @BeforeEach
     public void setup() {
@@ -434,9 +427,7 @@ class ArticleControllerTest {
     }
 
     private String json(Object o) throws IOException {
-        MockHttpOutputMessage mockHttpOutputMessage = new MockHttpOutputMessage();
-        httpMessageConverter.write(o, APPLICATION_JSON, mockHttpOutputMessage);
-        return mockHttpOutputMessage.getBodyAsString();
+        return objectMapper.writeValueAsString(o);
     }
 
     private String createStringWithLength(int length) {
