@@ -6,7 +6,7 @@
 [![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
 
 Includes web-server on port 9080 with `/articles` endpoint exposed.  
-Supports CRUD set of operations and R with pagination
+Supports CRUD set of operations and Read with pagination (see usage description below).
 
 ## Prerequisites:
 - JDK 11
@@ -44,27 +44,41 @@ Use [run.bat](./run.bat) script
 ## Same thing but using Spring profile to determine properties:
     mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
 
-## Start application using set of two Docker containers - one with Postgres DB and another with application:
+## Start application in Docker container (vs Postgres DB in Docker):
     docker-compose up
 
-## Link for quick check:  
-http://localhost:9080/articles
+## Start application in Docker container (vs Postgres DB in Docker) with rebuild service image:
+    docker-compose up --build --force-recreate --no-deps
 
-## Swagger documentation:  
-http://localhost:9080/swagger-ui.html
+## Link for quick check:
+    http://localhost:9080/articles
 
-## Useful CURL commands:
-- New article addition:  
-`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/articles`
+## Swagger documentation:
+    http://localhost:9080/swagger-ui.html
 
-- Get existing article:  
-`curl -i http://localhost:9080/articles/1`
+## Useful CURL commands
 
-- Update existing article:  
-`curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/articles/2`
+### New article addition:
+```
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/articles
+```
 
-- Get list of articles with pagination support:  
-`curl -i 'http://localhost:9080/articles?size=2&page=4&sort=author,DESC'`
+### Get existing article:
+```
+curl -i http://localhost:9080/articles/1
+```
 
-- Deletion of article:  
-`curl -i -X DELETE http://localhost:9080/articles/1`
+### Update existing article:
+```
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/articles/2
+```
+
+### Get list of articles with pagination support:
+```
+curl -i 'http://localhost:9080/articles?size=2&page=4&sort=author,DESC'
+```
+
+### Deletion of article:
+```
+curl -i -X DELETE http://localhost:9080/articles/1
+```
