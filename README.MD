@@ -9,8 +9,8 @@ Includes web-server on port 9080 with `/articles` endpoint exposed.
 Supports CRUD set of operations and Read with pagination (see usage description below).
 
 ## Prerequisites:
-- JDK 11
 - Maven 3
+- JDK 17
 
 ## How to build:
     mvn clean install

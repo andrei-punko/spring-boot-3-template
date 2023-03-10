@@ -17,7 +17,7 @@
 	<description>Template project for Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>17</java.version>
 		<mapstruct.version>1.4.2.Final</mapstruct.version>
 		<lombok.version>1.18.22</lombok.version>
 		<swagger.version>2.9.2</swagger.version>
