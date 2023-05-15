@@ -21,7 +21,7 @@
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<lombok.version>1.18.26</lombok.version>
 		<swagger.version>3.0.0</swagger.version>
-		<swagger-annotations.version>1.6.10</swagger-annotations.version>
+		<swagger-annotations.version>1.6.11</swagger-annotations.version>
 		<testcontainers.version>1.18.0</testcontainers.version>
 	</properties>
 
