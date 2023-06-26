@@ -22,7 +22,7 @@
 		<lombok.version>1.18.28</lombok.version>
 		<swagger.version>3.0.0</swagger.version>
 		<swagger-annotations.version>1.6.11</swagger-annotations.version>
-		<testcontainers.version>1.18.1</testcontainers.version>
+		<testcontainers.version>1.18.3</testcontainers.version>
 	</properties>
 
 	<dependencies>
