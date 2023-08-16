@@ -5,7 +5,7 @@
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
 [![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
 
-Includes web-server on port 9080 with `/articles` endpoint exposed.  
+Includes web-server on port 9080 with `/api/v1/articles` endpoint exposed.
 Supports CRUD set of operations and Read with pagination (see usage description below).
 
 ## Prerequisites:
@@ -18,7 +18,7 @@ Supports CRUD set of operations and Read with pagination (see usage description 
 #### Build Docker image with application inside:
     docker build ./ -t backend-template-app
 
-## Start application using starting script:
+## Start application using a starting script:
 Use [run.bat](./run.bat) script
 
 ## Start application (vs in-memory DB H2) by running executable jar:
@@ -51,7 +51,7 @@ Use [run.bat](./run.bat) script
     docker-compose up --build --force-recreate --no-deps
 
 ## Link for quick check:
-    http://localhost:9080/articles
+    http://localhost:9080/api/v1/articles
 
 ## Swagger documentation:
     http://localhost:9080/swagger-ui.html
@@ -60,25 +60,25 @@ Use [run.bat](./run.bat) script
 
 ### New article addition:
 ```
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/articles
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/api/v1/articles
 ```
 
 ### Get existing article:
 ```
-curl -i http://localhost:9080/articles/1
+curl -i http://localhost:9080/api/v1/articles/1
 ```
 
 ### Update existing article:
 ```
-curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/articles/2
+curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/api/v1/articles/2
 ```
 
-### Get list of articles with pagination support:
+### Get a list of articles with pagination support:
 ```
-curl -i 'http://localhost:9080/articles?size=2&page=4&sort=author,DESC'
+curl -i 'http://localhost:9080/api/v1/articles?size=2&page=4&sort=author,DESC'
 ```
 
 ### Deletion of article:
 ```
-curl -i -X DELETE http://localhost:9080/articles/1
+curl -i -X DELETE http://localhost:9080/api/v1/articles/1
 ```
