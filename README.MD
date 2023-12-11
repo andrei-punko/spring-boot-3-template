@@ -59,26 +59,26 @@ Use [run.bat](./run.bat) script
 ## Useful CURL commands
 
 ### New article addition:
-```
+```bash
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }' -X POST http://localhost:9080/api/v1/articles
 ```
 
 ### Get existing article:
-```
+```bash
 curl -i http://localhost:9080/api/v1/articles/1
 ```
 
 ### Update existing article:
-```
+```bash
 curl -i -H "Accept: application/json" -H "Content-Type: application/json" -d '{ "title": "Another tittle" }' -X PATCH http://localhost:9080/api/v1/articles/2
 ```
 
 ### Get a list of articles with pagination support:
-```
+```bash
 curl -i 'http://localhost:9080/api/v1/articles?size=2&page=4&sort=author,DESC'
 ```
 
 ### Deletion of article:
-```
+```bash
 curl -i -X DELETE http://localhost:9080/api/v1/articles/1
 ```

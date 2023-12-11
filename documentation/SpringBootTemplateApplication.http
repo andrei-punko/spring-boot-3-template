@@ -1,0 +1,30 @@
+
+### New article addition:
+
+POST http://localhost:9080/api/v1/articles
+Content-Type: application/json
+
+{ "title": "Some tittle", "text": "Some text", "author": "Pushkin" }
+
+
+### Get existing article:
+
+GET http://localhost:9080/api/v1/articles/1
+
+
+### Update existing article:
+
+PATCH http://localhost:9080/api/v1/articles/2
+Content-Type: application/json
+
+{ "title": "Another tittle" }
+
+
+### Get a list of articles with pagination support:
+
+GET http://localhost:9080/api/v1/articles?size=2&page=4&sort=author,DESC
+
+
+### Deletion of article:
+
+DELETE http://localhost:9080/api/v1/articles/1
