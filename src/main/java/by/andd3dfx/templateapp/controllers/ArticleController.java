@@ -98,18 +98,6 @@ public class ArticleController {
         articleService.delete(id);
     }
 
-    // Seems will be deleted
-    @Deprecated
-    public List<ArticleDto> readArticles(
-        @RequestParam(defaultValue = "0") Integer pageNo,
-        @RequestParam(defaultValue = "50") Integer pageSize,
-        @RequestParam(defaultValue = "title") String sortBy
-    ) {
-        Pageable pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        final Page<ArticleDto> articleDtoPage = readArticlesPaged(pageRequest);
-        return articleDtoPage.getContent();
-    }
-
     @ApiOperation(value = "Read articles paged", response = Page.class)
     @ApiResponses(value = {
         @ApiResponse(code = 200, message = "Articles successfully retrieved"),
