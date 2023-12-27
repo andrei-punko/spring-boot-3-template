@@ -13,11 +13,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 
 import java.time.Clock;
@@ -179,7 +178,7 @@ class ArticleServiceTest {
         final Pageable pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
         final List<Article> articles = Arrays.asList(new Article());
-        final Page<Article> pagedResult = new PageImpl<>(articles, pageRequest, articles.size());
+        final Slice<Article> pagedResult = new PageImpl<>(articles, pageRequest, articles.size());
         final List<ArticleDto> articleDtoList = Arrays.asList(new ArticleDto());
 
         Mockito.doReturn(pagedResult).when(articleRepositoryMock).findAll(pageRequest);
@@ -200,13 +199,13 @@ class ArticleServiceTest {
         final Pageable pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
 
         final List<Article> articles = Arrays.asList(new Article());
-        final Page<Article> pagedResult = new PageImpl<>(articles, pageRequest, articles.size());
+        final Slice<Article> pagedResult = new PageImpl<>(articles, pageRequest, articles.size());
         final List<ArticleDto> articleDtoList = Arrays.asList(new ArticleDto());
 
         Mockito.doReturn(pagedResult).when(articleRepositoryMock).findAll(pageRequest);
         Mockito.doReturn(articleDtoList.get(0)).when(articleMapperMock).toArticleDto(articles.get(0));
 
-        Page<ArticleDto> result = articleService.getAll(pageRequest);
+        Slice<ArticleDto> result = articleService.getAll(pageRequest);
 
         Mockito.verify(articleRepositoryMock).findAll(pageRequest);
         Mockito.verify(articleMapperMock).toArticleDto(articles.get(0));

@@ -9,10 +9,9 @@ import by.andd3dfx.templateapp.persistence.entities.Article;
 import by.andd3dfx.templateapp.services.IArticleService;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Slice;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -63,14 +62,14 @@ public class ArticleService implements IArticleService {
     @Override
     public List<ArticleDto> getAll(Integer pageNo, Integer pageSize, String sortBy) {
         Pageable pageRequest = PageRequest.of(pageNo, pageSize, Sort.by(sortBy));
-        Page<Article> pagedResult = articleRepository.findAll(pageRequest);
+        Slice<Article> pagedResult = articleRepository.findAll(pageRequest);
         return articleMapper.toArticleDtoList(pagedResult.getContent());
     }
 
     @Transactional(readOnly = true)
     @Override
-    public Page<ArticleDto> getAll(Pageable pageable) {
-        final Page<Article> pagedResult = articleRepository.findAll(pageable);
+    public Slice<ArticleDto> getAll(Pageable pageable) {
+        Slice<Article> pagedResult = articleRepository.findAll(pageable);
         return pagedResult.map(articleMapper::toArticleDto);
     }
 }
