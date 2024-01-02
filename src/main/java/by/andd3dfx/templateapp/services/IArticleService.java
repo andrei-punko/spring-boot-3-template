@@ -17,7 +17,5 @@ public interface IArticleService {
 
     void delete(Long id);
 
-    List<ArticleDto> getAll(Integer pageNo, Integer pageSize, String sortBy);
-
     Slice<ArticleDto> getAll(Pageable pageable);
 }
