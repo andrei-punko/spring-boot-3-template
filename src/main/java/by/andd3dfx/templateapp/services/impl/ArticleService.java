@@ -7,12 +7,9 @@ import by.andd3dfx.templateapp.mappers.ArticleMapper;
 import by.andd3dfx.templateapp.persistence.dao.ArticleRepository;
 import by.andd3dfx.templateapp.persistence.entities.Article;
 import by.andd3dfx.templateapp.services.IArticleService;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -41,8 +38,8 @@ public class ArticleService implements IArticleService {
 
     @Transactional
     @Override
-    public void update(Long id, ArticleUpdateDto articleUpdateDto) {
-        articleRepository.findById(id)
+    public ArticleDto update(Long id, ArticleUpdateDto articleUpdateDto) {
+        return articleRepository.findById(id)
             .map(article -> {
                 articleMapper.toArticle(articleUpdateDto, article);
                 Article savedArticle = articleRepository.save(article);

@@ -2,12 +2,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<parent>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.2.1</version>
-		<relativePath/> <!-- lookup parent from repository -->
-	</parent>
 
 	<groupId>by.andd3dfx</groupId>
 	<artifactId>spring-boot-template</artifactId>
@@ -17,14 +11,41 @@
 	<description>Template project for Spring Boot</description>
 
 	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+
 		<java.version>17</java.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<lombok.version>1.18.30</lombok.version>
+		<spring-boot.version>3.2.1</spring-boot.version>
 		<swagger.version>3.0.0</swagger.version>
-		<swagger-annotations.version>1.6.12</swagger-annotations.version>
+		<swagger-core.version>2.2.20</swagger-core.version>
 		<springdoc-openapi-starter-webmvc-ui.version>2.3.0</springdoc-openapi-starter-webmvc-ui.version>
 		<testcontainers.version>1.19.3</testcontainers.version>
 	</properties>
+
+	<!-- Use BOM (Bill of materials) for JUnit & Spring Boot -->
+	<dependencyManagement>
+		<dependencies>
+			<!-- Import dependency management for Tests -->
+			<dependency>
+				<groupId>org.junit</groupId>
+				<artifactId>junit-bom</artifactId>
+				<version>5.10.1</version>
+				<scope>import</scope>
+				<type>pom</type>
+			</dependency>
+
+			<dependency>
+				<!-- Import dependency management for Spring Boot -->
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-dependencies</artifactId>
+				<version>${spring-boot.version}</version>
+				<type>pom</type>
+				<scope>import</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 
 	<dependencies>
 		<dependency>
@@ -81,14 +102,14 @@
 			<version>${swagger.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.swagger</groupId>
+			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-annotations</artifactId>
-			<version>${swagger-annotations.version}</version>
+			<version>${swagger-core.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>io.swagger</groupId>
+			<groupId>io.swagger.core.v3</groupId>
 			<artifactId>swagger-models</artifactId>
-			<version>${swagger-annotations.version}</version>
+			<version>${swagger-core.version}</version>
 		</dependency>
 
 		<dependency>
@@ -138,11 +159,6 @@
 
 	<build>
 		<plugins>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-			</plugin>
-
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
@@ -198,7 +214,24 @@
 					</excludes>
 				</configuration>
 			</plugin>
+
+			<!-- According to: https://www.baeldung.com/spring-boot-fix-the-no-main-manifest-attribute -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<configuration>
+					<mainClass>by.andd3dfx.templateapp.SpringBootTemplateApplication</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
 		</plugins>
 	</build>
-
 </project>

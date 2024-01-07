@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  */
 public class IntegrationTestInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:12-alpine");
+    private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
