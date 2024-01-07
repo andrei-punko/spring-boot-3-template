@@ -159,8 +159,14 @@
 
 	<build>
 		<plugins>
+			<!-- Explicitly set maven-surefire-plugin version, according to: -->
+			<!-- https://stackoverflow.com/questions/54414274/override-the-version-of-maven-surefire-plugin-inherited-from-a-maven-import -->
 			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-surefire-plugin</artifactId>
+				<version>3.2.3</version>
+			</plugin>
+
+			<plugin>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<version>3.12.1</version>
 				<configuration>
@@ -188,6 +194,24 @@
 				</configuration>
 			</plugin>
 
+			<!-- According to: https://www.baeldung.com/spring-boot-fix-the-no-main-manifest-attribute -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>${spring-boot.version}</version>
+				<configuration>
+					<mainClass>by.andd3dfx.templateapp.SpringBootTemplateApplication</mainClass>
+					<layout>JAR</layout>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
 			<plugin>
 				<groupId>org.jacoco</groupId>
 				<artifactId>jacoco-maven-plugin</artifactId>
@@ -213,24 +237,6 @@
 						<exclude>**/entities/*</exclude>
 					</excludes>
 				</configuration>
-			</plugin>
-
-			<!-- According to: https://www.baeldung.com/spring-boot-fix-the-no-main-manifest-attribute -->
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>${spring-boot.version}</version>
-				<configuration>
-					<mainClass>by.andd3dfx.templateapp.SpringBootTemplateApplication</mainClass>
-					<layout>JAR</layout>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 	</build>
