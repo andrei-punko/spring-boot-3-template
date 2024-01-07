@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
@@ -29,7 +28,10 @@ import java.util.Optional;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.lenient;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ArticleServiceTest {
@@ -62,15 +64,15 @@ class ArticleServiceTest {
         Article updatedArticle = Article.builder().build();
         ArticleDto updatedArticleDto = ArticleDto.builder().build();
 
-        Mockito.when(articleMapperMock.toArticle(articleDto)).thenReturn(article);
-        Mockito.when(articleRepositoryMock.save(article)).thenReturn(updatedArticle);
-        Mockito.when(articleMapperMock.toArticleDto(updatedArticle)).thenReturn(updatedArticleDto);
+        when(articleMapperMock.toArticle(articleDto)).thenReturn(article);
+        when(articleRepositoryMock.save(article)).thenReturn(updatedArticle);
+        when(articleMapperMock.toArticleDto(updatedArticle)).thenReturn(updatedArticleDto);
 
         ArticleDto result = articleService.create(articleDto);
 
-        Mockito.verify(articleMapperMock).toArticle(articleDto);
-        Mockito.verify(articleRepositoryMock).save(article);
-        Mockito.verify(articleMapperMock).toArticleDto(updatedArticle);
+        verify(articleMapperMock).toArticle(articleDto);
+        verify(articleRepositoryMock).save(article);
+        verify(articleMapperMock).toArticleDto(updatedArticle);
         assertThat(result, is(updatedArticleDto));
     }
 
@@ -80,13 +82,13 @@ class ArticleServiceTest {
         Article article = new Article();
         Optional<Article> optionalArticle = Optional.of(article);
         ArticleDto articleDto = new ArticleDto();
-        Mockito.when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
-        Mockito.when(articleMapperMock.toArticleDto(article)).thenReturn(articleDto);
+        when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
+        when(articleMapperMock.toArticleDto(article)).thenReturn(articleDto);
 
-        ArticleDto result = articleService.get(ARTICLE_ID);
+        ArticleDto result = articleService.read(ARTICLE_ID);
 
-        Mockito.verify(articleRepositoryMock).findById(ARTICLE_ID);
-        Mockito.verify(articleMapperMock).toArticleDto(article);
+        verify(articleRepositoryMock).findById(ARTICLE_ID);
+        verify(articleMapperMock).toArticleDto(article);
         assertThat(result, is(articleDto));
     }
 
@@ -94,14 +96,14 @@ class ArticleServiceTest {
     public void getAbsentArticle() {
         final Long ARTICLE_ID = 123L;
         Optional<Article> optionalArticle = Optional.empty();
-        Mockito.when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
+        when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
 
         try {
-            articleService.get(ARTICLE_ID);
+            articleService.read(ARTICLE_ID);
 
             fail("Exception should be thrown");
         } catch (ArticleNotFoundException ex) {
-            Mockito.verify(articleRepositoryMock).findById(ARTICLE_ID);
+            verify(articleRepositoryMock).findById(ARTICLE_ID);
         }
     }
 
@@ -116,23 +118,23 @@ class ArticleServiceTest {
                 .title("New title")
                 .build();
 
-        Mockito.when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
-        Mockito.when(articleRepositoryMock.save(article)).thenReturn(savedArticle);
-        Mockito.when(articleMapperMock.toArticleDto(savedArticle)).thenReturn(updatedArticleDto);
+        when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
+        when(articleRepositoryMock.save(article)).thenReturn(savedArticle);
+        when(articleMapperMock.toArticleDto(savedArticle)).thenReturn(updatedArticleDto);
 
         articleService.update(ARTICLE_ID, articleUpdateDto);
 
-        Mockito.verify(articleRepositoryMock).findById(ARTICLE_ID);
-        Mockito.verify(articleMapperMock).toArticle(articleUpdateDto, article);
-        Mockito.verify(articleRepositoryMock).save(article);
-        Mockito.verify(articleMapperMock).toArticleDto(savedArticle);
+        verify(articleRepositoryMock).findById(ARTICLE_ID);
+        verify(articleMapperMock).toArticle(articleUpdateDto, article);
+        verify(articleRepositoryMock).save(article);
+        verify(articleMapperMock).toArticleDto(savedArticle);
     }
 
     @Test
     void updateAbsentArticle() {
         final Long ARTICLE_ID = 123L;
         Optional<Article> optionalArticle = Optional.empty();
-        Mockito.when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
+        when(articleRepositoryMock.findById(ARTICLE_ID)).thenReturn(optionalArticle);
         ArticleUpdateDto articleUpdateDto = new ArticleUpdateDto();
 
         try {
@@ -140,32 +142,32 @@ class ArticleServiceTest {
 
             fail("Exception should be thrown");
         } catch (ArticleNotFoundException ex) {
-            Mockito.verify(articleRepositoryMock).findById(ARTICLE_ID);
+            verify(articleRepositoryMock).findById(ARTICLE_ID);
         }
     }
 
     @Test
     void delete() {
         final Long ARTICLE_ID = 123L;
-        Mockito.when(articleRepositoryMock.existsById(ARTICLE_ID)).thenReturn(true);
+        when(articleRepositoryMock.existsById(ARTICLE_ID)).thenReturn(true);
 
         articleService.delete(ARTICLE_ID);
 
-        Mockito.verify(articleRepositoryMock).existsById(ARTICLE_ID);
-        Mockito.verify(articleRepositoryMock).deleteById(ARTICLE_ID);
+        verify(articleRepositoryMock).existsById(ARTICLE_ID);
+        verify(articleRepositoryMock).deleteById(ARTICLE_ID);
     }
 
     @Test
     void deleteAbsentArticle() {
         final Long ARTICLE_ID = 123L;
-        Mockito.when(articleRepositoryMock.existsById(ARTICLE_ID)).thenReturn(false);
+        when(articleRepositoryMock.existsById(ARTICLE_ID)).thenReturn(false);
 
         try {
             articleService.delete(ARTICLE_ID);
 
             fail("Exception should be thrown");
         } catch (ArticleNotFoundException ex) {
-            Mockito.verify(articleRepositoryMock).existsById(ARTICLE_ID);
+            verify(articleRepositoryMock).existsById(ARTICLE_ID);
             assertThat("Wrong message", ex.getMessage(), is("Could not find an article by id=" + ARTICLE_ID));
         }
     }
@@ -181,13 +183,13 @@ class ArticleServiceTest {
         final Slice<Article> pagedResult = new PageImpl<>(articles, pageRequest, articles.size());
         final List<ArticleDto> articleDtoList = Arrays.asList(new ArticleDto());
 
-        Mockito.doReturn(pagedResult).when(articleRepositoryMock).findAll(pageRequest);
-        Mockito.doReturn(articleDtoList.get(0)).when(articleMapperMock).toArticleDto(articles.get(0));
+        doReturn(pagedResult).when(articleRepositoryMock).findAll(pageRequest);
+        doReturn(articleDtoList.get(0)).when(articleMapperMock).toArticleDto(articles.get(0));
 
         Slice<ArticleDto> result = articleService.getAll(pageRequest);
 
-        Mockito.verify(articleRepositoryMock).findAll(pageRequest);
-        Mockito.verify(articleMapperMock).toArticleDto(articles.get(0));
+        verify(articleRepositoryMock).findAll(pageRequest);
+        verify(articleMapperMock).toArticleDto(articles.get(0));
         assertThat(result.getContent().size(), is(1));
         assertThat(result.getContent().get(0), is(articleDtoList.get(0)));
     }

@@ -9,7 +9,7 @@ public interface IArticleService {
 
     ArticleDto create(ArticleDto articleDto);
 
-    ArticleDto get(Long id);
+    ArticleDto read(Long id);
 
     ArticleDto update(Long id, ArticleUpdateDto articleUpdateDto);
 

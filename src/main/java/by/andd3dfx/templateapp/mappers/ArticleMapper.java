@@ -13,8 +13,6 @@ public interface ArticleMapper {
 
     ArticleDto toArticleDto(Article article);
 
-    List<ArticleDto> toArticleDtoList(List<Article> articles);
-
     Article toArticle(ArticleDto articleDto);
 
     void toArticle(ArticleUpdateDto articleUpdateDto, @MappingTarget Article article);

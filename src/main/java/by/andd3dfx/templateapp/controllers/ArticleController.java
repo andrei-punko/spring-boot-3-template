@@ -64,7 +64,7 @@ public class ArticleController {
             @NotNull
             @PathVariable("id") Long id
     ) {
-        return articleService.get(id);
+        return articleService.read(id);
     }
 
     @Operation(summary = "Update article", responses = {

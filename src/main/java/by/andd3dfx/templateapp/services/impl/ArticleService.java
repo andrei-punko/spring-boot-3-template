@@ -30,7 +30,7 @@ public class ArticleService implements IArticleService {
 
     @Transactional(readOnly = true)
     @Override
-    public ArticleDto get(Long id) {
+    public ArticleDto read(Long id) {
         return articleRepository.findById(id)
             .map(articleMapper::toArticleDto)
             .orElseThrow(() -> new ArticleNotFoundException(id));
