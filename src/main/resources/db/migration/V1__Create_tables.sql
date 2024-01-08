@@ -5,7 +5,7 @@ create table articles (
     summary varchar(255),
     ts timestamp,
     text varchar not null,
-    author varchar not null,
+    author varchar(50) not null,
     date_created timestamp not null,
     date_updated timestamp not null,
     primary key (id)

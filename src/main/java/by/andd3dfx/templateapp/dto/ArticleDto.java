@@ -39,6 +39,7 @@ public class ArticleDto {
     private String text;
 
     @NotNull(message = "Author should be populated")
+    @Size(max = 50, message = "Author length shouldn't be greater than 50")
     @Schema(description = "Article's author", required = true)
     private String author;
 
