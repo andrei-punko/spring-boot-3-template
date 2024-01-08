@@ -9,19 +9,19 @@ insert into articles (id, title, summary, text, author, date_created, date_updat
 values (nextval('ARTICLE_ID_SEQ'), 'Келейные письма', 'Сборник писем', '', 'Тихон Задонский', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
-values (nextval('ARTICLE_ID_SEQ'), 'Ревизор', '', '', 'Николай Гоголь', current_timestamp, current_timestamp);
+values (nextval('ARTICLE_ID_SEQ'), 'Чистый код', 'Книга для каждого программиста', '', 'Роберт Мартин', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
 values (nextval('ARTICLE_ID_SEQ'), 'Моя жизнь во Христе', 'Дневниковые записи Иоанна Кронштадтского', '', 'Иоанн Сергиев', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
-values (nextval('ARTICLE_ID_SEQ'), 'Слова подвижнические', '', '', 'Исаак Сирский', current_timestamp, current_timestamp);
+values (nextval('ARTICLE_ID_SEQ'), 'Слова подвижнические', 'Творения одного из лучших аскетов', '', 'Исаак Сирский', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
 values (nextval('ARTICLE_ID_SEQ'), 'Современная практика православного благочестия', 'Руководство к духовной жизни', '', 'Николай Пестов', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
-values (nextval('ARTICLE_ID_SEQ'), 'Великое в малом', '', '', 'Сергей Нилус', current_timestamp, current_timestamp);
+values (nextval('ARTICLE_ID_SEQ'), 'Мучение любви', 'Записки о монашеской жизни', '', 'Архимандрит Лазарь (Абашидзе)', current_timestamp, current_timestamp);
 
 insert into articles (id, title, summary, text, author, date_created, date_updated)
 values (nextval('ARTICLE_ID_SEQ'), 'Отечник', 'Выписки из святых отцов', '', 'Игнатий Брянчанинов', current_timestamp, current_timestamp);
