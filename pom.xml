@@ -16,12 +16,11 @@
 
 		<java.version>17</java.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
-		<lombok.version>1.18.30</lombok.version>
 		<spring-boot.version>3.2.1</spring-boot.version>
+
 		<swagger.version>3.0.0</swagger.version>
 		<swagger-core.version>2.2.20</swagger-core.version>
-		<springdoc-openapi-starter-webmvc-ui.version>2.3.0</springdoc-openapi-starter-webmvc-ui.version>
-		<testcontainers.version>1.19.3</testcontainers.version>
+		<springdoc.version>2.3.0</springdoc.version>
 	</properties>
 
 	<!-- Use BOM (Bill of materials) for JUnit & Spring Boot -->
@@ -77,7 +76,6 @@
 		<dependency>
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
-			<version>${lombok.version}</version>
 			<scope>provided</scope>
 		</dependency>
 
@@ -94,7 +92,7 @@
 		<dependency>
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
-			<version>${springdoc-openapi-starter-webmvc-ui.version}</version>
+			<version>${springdoc.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.springfox</groupId>
@@ -136,23 +134,19 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>postgresql</artifactId>
-			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>testcontainers</artifactId>
-			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 		<dependency>
 			<groupId>org.testcontainers</groupId>
 			<artifactId>junit-jupiter</artifactId>
-			<version>${testcontainers.version}</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
@@ -181,7 +175,6 @@
 						<path>
 							<groupId>org.projectlombok</groupId>
 							<artifactId>lombok</artifactId>
-							<version>${lombok.version}</version>
 						</path>
 						<!-- This is needed when using Lombok 1.18.16 and above -->
 						<!-- According to: https://stackoverflow.com/questions/47676369/mapstruct-and-lombok-not-working-together -->
@@ -199,10 +192,6 @@
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
 				<version>${spring-boot.version}</version>
-				<configuration>
-					<mainClass>by.andd3dfx.templateapp.SpringBootTemplateApplication</mainClass>
-					<layout>JAR</layout>
-				</configuration>
 				<executions>
 					<execution>
 						<goals>
