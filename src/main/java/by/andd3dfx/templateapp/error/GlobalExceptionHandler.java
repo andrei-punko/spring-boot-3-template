@@ -3,6 +3,7 @@ package by.andd3dfx.templateapp.error;
 import by.andd3dfx.templateapp.error.exception.NotFoundException;
 import by.andd3dfx.templateapp.error.exception.UnauthorizedException;
 import by.andd3dfx.templateapp.error.dto.ExceptionResponse;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -14,6 +15,7 @@ import java.time.LocalDateTime;
 /**
  * Add more methods if needed.
  */
+@Slf4j
 @ControllerAdvice
 public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
@@ -53,8 +55,10 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
     }
 
     private ResponseEntity<ExceptionResponse> buildResponseEntity(Exception ex, HttpStatus httpStatus) {
+        var body = new ExceptionResponse(ex.getMessage(), httpStatus.name(), LocalDateTime.now());
+        log.error("Error happens: " + body);
         return ResponseEntity
                 .status(httpStatus)
-                .body(new ExceptionResponse(ex.getMessage(), httpStatus.name(), LocalDateTime.now()));
+                .body(body);
     }
 }
