@@ -157,7 +157,7 @@
 			<!-- https://stackoverflow.com/questions/54414274/override-the-version-of-maven-surefire-plugin-inherited-from-a-maven-import -->
 			<plugin>
 				<artifactId>maven-surefire-plugin</artifactId>
-				<version>3.2.3</version>
+				<version>3.2.5</version>
 			</plugin>
 
 			<plugin>
@@ -212,8 +212,8 @@
 					</goals>
 				  </execution>
 				  <execution>
-					<id>generate-code-coverage-report</id>
-					<phase>test</phase>
+					  <id>report</id>
+					<phase>prepare-package</phase>
 					<goals>
 					  <goal>report</goal>
 					</goals>
