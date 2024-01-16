@@ -4,11 +4,11 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>by.andd3dfx</groupId>
-	<artifactId>spring-boot-template</artifactId>
+	<artifactId>spring-boot-3-template</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
-	<name>spring-boot-template</name>
-	<description>Template project for Spring Boot</description>
+	<name>spring-boot-3-template</name>
+	<description>Template project for Spring Boot 3</description>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>

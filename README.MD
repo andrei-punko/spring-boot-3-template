@@ -1,9 +1,9 @@
 
 # Template for Spring Boot application
 
-![Java CI with Maven](https://github.com/andrei-punko/spring-boot-template/workflows/Java%20CI%20with%20Maven/badge.svg)
-[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
-[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-template/actions/workflows/maven.yml)
+![Java CI with Maven](https://github.com/andrei-punko/spring-boot-3-template/workflows/Java%20CI%20with%20Maven/badge.svg)
+[![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
+[![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
 
 Includes web-server on port 9080 with `/api/v1/articles` endpoint exposed.
 Supports CRUD set of operations and Read with pagination (see usage description below).
@@ -22,7 +22,7 @@ Supports CRUD set of operations and Read with pagination (see usage description 
 Use [run.bat](./run.bat) script
 
 ## Start application (vs in-memory DB H2) by running executable jar:
-    java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
+    java -jar target/spring-boot-3-template-0.0.1-SNAPSHOT.jar \
      --spring.datasource.url=jdbc:h2:mem:testdb \
      --spring.datasource.username=sa \
      --spring.datasource.password=password \
@@ -30,7 +30,7 @@ Use [run.bat](./run.bat) script
      --spring.datasource.driver-class-name=org.h2.Driver
 
 ## Same thing but using Spring profile to determine properties:
-    java -jar target/spring-boot-template-0.0.1-SNAPSHOT.jar \
+    java -jar target/spring-boot-3-template-0.0.1-SNAPSHOT.jar \
      --spring.profiles.active=dev
 
 ## Start application (vs in-memory DB H2) using Maven:
