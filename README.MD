@@ -1,5 +1,5 @@
 
-# Template for Spring Boot application
+# Template for Spring Boot 3 application
 
 ![Java CI with Maven](https://github.com/andrei-punko/spring-boot-3-template/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
