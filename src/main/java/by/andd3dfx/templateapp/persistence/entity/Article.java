@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.persistence.entities;
+package by.andd3dfx.templateapp.persistence.entity;
 
 import java.time.LocalDateTime;
 import jakarta.persistence.Column;

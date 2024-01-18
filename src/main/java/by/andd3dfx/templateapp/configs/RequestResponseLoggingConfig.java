@@ -1,5 +1,6 @@
-package by.andd3dfx.templateapp.logging;
+package by.andd3dfx.templateapp.configs;
 
+import by.andd3dfx.templateapp.logging.LoggableDispatcherServlet;
 import org.springframework.boot.autoconfigure.web.servlet.DispatcherServletAutoConfiguration;
 import org.springframework.boot.web.servlet.ServletRegistrationBean;
 import org.springframework.context.annotation.Bean;

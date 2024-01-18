@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.logging;
+package by.andd3dfx.templateapp.logging.dto;
 
 import lombok.Data;
 

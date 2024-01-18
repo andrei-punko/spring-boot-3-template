@@ -1,6 +1,6 @@
 package by.andd3dfx.templateapp.dto;
 
-import by.andd3dfx.templateapp.validators.OnlyOneFieldModified;
+import by.andd3dfx.templateapp.validation.OnlyOneFieldModified;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import io.swagger.v3.oas.annotations.media.Schema;

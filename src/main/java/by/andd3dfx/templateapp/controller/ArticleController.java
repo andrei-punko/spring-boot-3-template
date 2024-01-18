@@ -1,8 +1,8 @@
-package by.andd3dfx.templateapp.controllers;
+package by.andd3dfx.templateapp.controller;
 
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
-import by.andd3dfx.templateapp.services.IArticleService;
+import by.andd3dfx.templateapp.service.IArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;

@@ -50,7 +50,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * Don't delete this method to avoid descendants declare it and catch 'any error'.
      */
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity handleOtherExceptions(Exception ex) throws Exception {
+    public final ResponseEntity handleAnyOtherException(Exception ex) throws Exception {
         throw ex;
     }
 

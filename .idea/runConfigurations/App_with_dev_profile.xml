@@ -3,7 +3,7 @@
     <envs>
       <env name="spring.profiles.active" value="dev" />
     </envs>
-    <option name="MAIN_CLASS_NAME" value="by.andd3dfx.templateapp.SpringBootTemplateApplication" />
+    <option name="MAIN_CLASS_NAME" value="by.andd3dfx.templateapp.SpringBootTemplateApp" />
     <module name="spring-boot-3-template" />
     <extension name="coverage">
       <pattern>

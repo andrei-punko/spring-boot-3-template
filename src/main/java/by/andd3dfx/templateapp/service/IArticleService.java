@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.services;
+package by.andd3dfx.templateapp.service;
 
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;

@@ -1,6 +1,6 @@
 package by.andd3dfx.templateapp.persistence.dao;
 
-import by.andd3dfx.templateapp.persistence.entities.Article;
+import by.andd3dfx.templateapp.persistence.entity.Article;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.repository.CrudRepository;

@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.validators;
+package by.andd3dfx.templateapp.validation;
 
 import jakarta.validation.Constraint;
 import jakarta.validation.Payload;

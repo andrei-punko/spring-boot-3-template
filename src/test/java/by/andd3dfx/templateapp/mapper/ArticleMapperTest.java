@@ -1,14 +1,12 @@
-package by.andd3dfx.templateapp.mappers;
+package by.andd3dfx.templateapp.mapper;
 
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
-import by.andd3dfx.templateapp.persistence.entities.Article;
+import by.andd3dfx.templateapp.persistence.entity.Article;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 
 import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.nullValue;

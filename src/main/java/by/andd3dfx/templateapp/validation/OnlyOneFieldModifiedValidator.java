@@ -1,4 +1,4 @@
-package by.andd3dfx.templateapp.validators;
+package by.andd3dfx.templateapp.validation;
 
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
 
