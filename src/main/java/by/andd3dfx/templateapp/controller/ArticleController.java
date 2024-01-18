@@ -10,6 +10,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import jakarta.validation.constraints.NotNull;
 import lombok.RequiredArgsConstructor;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
 import org.springframework.data.web.PageableDefault;
@@ -115,7 +116,7 @@ public class ArticleController {
     })
     @GetMapping
     public Slice<ArticleDto> readArticlesPaged(
-            @Parameter(description = "Page request parameters")
+            @ParameterObject
             @PageableDefault(size = 50)
             @SortDefault(sort = "title")
             Pageable pageable
