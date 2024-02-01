@@ -1,18 +1,18 @@
 
-create table articles (
-    id int not null,
-    title varchar(100) not null,
-    summary varchar(255),
-    ts timestamp,
-    text varchar not null,
-    author varchar(50) not null,
-    date_created timestamp not null,
-    date_updated timestamp not null,
+create table ARTICLES (
+    ID int not null,
+    TITLE varchar(100) not null,
+    SUMMARY varchar(255),
+    TS timestamp,
+    TEXT varchar not null,
+    AUTHOR varchar(50) not null,
+    DATE_CREATED timestamp not null,
+    DATE_UPDATED timestamp not null,
     primary key (id)
 );
 
-create sequence article_id_seq START WITH 1 INCREMENT BY 1;
+create sequence ARTICLE_ID_SEQ start with 1 increment by 1;
 
-create index article_title_idx on articles(title);
-create index article_date_created_idx on articles(date_created);
-create index article_ts_idx on articles(ts);
+create index ARTICLE_TITLE_IDX on ARTICLES(TITLE);
+create index ARTICLE_DATE_CREATED_IDX on ARTICLES(DATE_CREATED);
+create index ARTICLE_TS_IDX on ARTICLES(TS);

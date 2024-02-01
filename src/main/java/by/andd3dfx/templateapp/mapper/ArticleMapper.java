@@ -10,9 +10,9 @@ import org.mapstruct.NullValuePropertyMappingStrategy;
 @Mapper(componentModel = "spring", nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
 public interface ArticleMapper {
 
-    ArticleDto toArticleDto(Article article);
+    ArticleDto toArticleDto(Article source);
 
-    Article toArticle(ArticleDto articleDto);
+    Article toArticle(ArticleDto source);
 
-    void toArticle(ArticleUpdateDto articleUpdateDto, @MappingTarget Article article);
+    void toArticle(ArticleUpdateDto source, @MappingTarget Article target);
 }
