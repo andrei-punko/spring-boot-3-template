@@ -6,7 +6,7 @@ plugins {
 group 'by.andd3dfx'
 version '0.1'
 
-java.sourceCompatibility = 17
+java.sourceCompatibility = 21
 
 repositories {
     mavenLocal()
