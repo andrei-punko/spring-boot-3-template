@@ -29,19 +29,26 @@ class SomeSpec extends Specification {
         assert response.status == 200
         and: 'got 2 records'
         assert response.responseData.content.size() == 2
-        assert response.responseData.content[0].title == 'Мучение любви'
+        assert response.responseData.content[0].title == 'Отечник'
     }
 
     def 'Read particular article'() {
         when: 'get particular article'
-        def response = restClient.get(path: '/api/v1/articles/1')
+        def getResponse = restClient.get(path: '/api/v1/articles/' + id)
 
         then: 'server returns 200 code (ok)'
-        assert response.status == 200
+        assert getResponse.status == 200
         and: 'got expected article'
-        assert response.responseData.title == 'Игрок'
-        assert response.responseData.summary == 'Рассказ о страсти игромании'
-        assert response.responseData.author == 'Федор Достоевский'
+        assert getResponse.responseData.title == title
+        assert getResponse.responseData.summary == summary
+        assert getResponse.responseData.author == author
+
+        where:
+        id | title                              | summary                          | author
+        1  | 'Игрок'                            | 'Рассказ о страсти игромании'    | 'Федор Достоевский'
+        8  | 'Сила Божия и немощь человеческая' | 'Жизнеописание игумена Феодосия' | 'Сергей Нилус'
+        9  | 'Отечник'                          | 'Цитаты Святых Отцов'            | 'Игнатий Брянчанинов'
+        10 | 'Душеполезные поучения'            | 'Азбука духовной жизни'          | 'Авва Дорофей'
     }
 
     def 'Create an article'() {
@@ -85,18 +92,17 @@ class SomeSpec extends Specification {
         then: 'server returns 204 code'
         assert deleteResponse.status == 204
 
-        and: 'try to get deleted article by id'
+        and: 'couldn\'t get deleted article by id, got 404 error instead'
         try {
             restClient.get(path: '/api/v1/articles/' + id)
             throw new RuntimeException("Should not found deleted article")
         } catch (HttpResponseException hre) {
-            and: 'got an 404 error'
             assert hre.statusCode == 404
         }
     }
 
     def 'Update an article'() {
-        when:
+        when: 'update title of an article with id=2'
         def newTitle = generateRandomString(10)
         def response = restClient.patch(
                 path: '/api/v1/articles/2',
@@ -111,6 +117,7 @@ class SomeSpec extends Specification {
         def getResponse = restClient.get(path: '/api/v1/articles/2')
         and: 'got 200 status'
         assert getResponse.status == 200
+        and: 'got article title equals to new value'
         assert getResponse.responseData.title == newTitle
     }
 
