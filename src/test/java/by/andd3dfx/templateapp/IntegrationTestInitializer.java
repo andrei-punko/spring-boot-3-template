@@ -15,7 +15,7 @@ import java.util.stream.Stream;
  */
 public class IntegrationTestInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
+    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {
@@ -23,7 +23,7 @@ public class IntegrationTestInitializer implements ApplicationContextInitializer
         ConfigurableEnvironment environment = applicationContext.getEnvironment();
 
         MapPropertySource propertySource = new MapPropertySource(
-                "test-containers", (Map) createConnectionConfiguration()
+                "test-containers", createConnectionConfiguration()
         );
         environment.getPropertySources().addFirst(propertySource);
     }
@@ -34,7 +34,7 @@ public class IntegrationTestInitializer implements ApplicationContextInitializer
         // here like rabbitmq or other databases
     }
 
-    private static Map<String, String> createConnectionConfiguration() {
+    private static Map<String, Object> createConnectionConfiguration() {
         return Map.of(
                 "DB_URL", postgres.getJdbcUrl(),
                 "DB_USERNAME", postgres.getUsername(),

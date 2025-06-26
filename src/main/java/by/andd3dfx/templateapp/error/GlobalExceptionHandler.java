@@ -31,7 +31,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * 404.
      */
     @ExceptionHandler(NotFoundException.class)
-    public ResponseEntity handleResourceNotFoundException(NotFoundException ex) {
+    public ResponseEntity<ExceptionResponse> handleResourceNotFoundException(NotFoundException ex) {
         return buildResponseEntity(ex, HttpStatus.NOT_FOUND);
     }
 
@@ -39,7 +39,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * 409.
      */
     @ExceptionHandler({IllegalArgumentException.class, IllegalStateException.class})
-    public ResponseEntity handleIllegalExceptions(RuntimeException ex) {
+    public ResponseEntity<ExceptionResponse> handleIllegalExceptions(RuntimeException ex) {
         return buildResponseEntity(ex, HttpStatus.CONFLICT);
     }
 
@@ -50,13 +50,13 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
      * Don't delete this method to avoid descendants declare it and catch 'any error'.
      */
     @ExceptionHandler(Exception.class)
-    public final ResponseEntity handleAnyOtherException(Exception ex) throws Exception {
+    public final ResponseEntity<ExceptionResponse> handleAnyOtherException(Exception ex) throws Exception {
         throw ex;
     }
 
     private ResponseEntity<ExceptionResponse> buildResponseEntity(Exception ex, HttpStatus httpStatus) {
         var body = new ExceptionResponse(ex.getMessage(), httpStatus.name(), LocalDateTime.now());
-        log.error("Error happens: " + body);
+        log.error("Error happens: {}", body);
         return ResponseEntity
                 .status(httpStatus)
                 .body(body);
