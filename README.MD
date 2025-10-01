@@ -98,3 +98,7 @@ curl -i 'http://localhost:9080/api/v1/articles?size=2&page=4&sort=author,DESC'
 ```bash
 curl -i -X DELETE http://localhost:9080/api/v1/articles/1
 ```
+
+## Related project
+
+Same project but with usage of Spring Boot 2 available [here](https://github.com/andrei-punko/spring-boot-2-template)
