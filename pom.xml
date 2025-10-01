@@ -16,7 +16,7 @@
 
 		<java.version>21</java.version>
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
-		<spring-boot.version>3.2.2</spring-boot.version>
+		<spring-boot.version>3.2.12</spring-boot.version>
 
 		<springfox.version>3.0.0</springfox.version>
 		<swagger-core.version>2.2.20</swagger-core.version>
