@@ -18,7 +18,6 @@
 		<mapstruct.version>1.5.5.Final</mapstruct.version>
 		<spring-boot.version>3.2.12</spring-boot.version>
 
-		<springfox.version>3.0.0</springfox.version>
 		<swagger-core.version>2.2.20</swagger-core.version>
 		<springdoc.version>2.3.0</springdoc.version>
 	</properties>
@@ -93,11 +92,6 @@
 			<groupId>org.springdoc</groupId>
 			<artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
 			<version>${springdoc.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>io.springfox</groupId>
-			<artifactId>springfox-swagger-ui</artifactId>
-			<version>${springfox.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>io.swagger.core.v3</groupId>
