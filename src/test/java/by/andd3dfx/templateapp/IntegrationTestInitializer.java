@@ -11,11 +11,11 @@ import java.util.Map;
 import java.util.stream.Stream;
 
 /**
- * According to https://reflectoring.io/spring-boot-flyway-testcontainers/
+ * According to <a href="https://reflectoring.io/spring-boot-flyway-testcontainers">article</a>
  */
 public class IntegrationTestInitializer implements ApplicationContextInitializer<ConfigurableApplicationContext> {
 
-    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:15-alpine");
+    private static final PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>("postgres:16-alpine");
 
     @Override
     public void initialize(ConfigurableApplicationContext applicationContext) {

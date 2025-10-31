@@ -51,13 +51,17 @@ Use [run.bat](./run.bat) script
 
     mvn spring-boot:run -Dspring-boot.run.arguments=--spring.profiles.active=dev
 
-## Start application in Docker container (vs Postgres DB in Docker):
+## Start Docker containers (application & Postgres DB) using existing images:
 
     docker-compose up
 
-## Start application in Docker container (vs Postgres DB in Docker) with rebuild service image:
+## Build images, force recreate and start Docker containers (application & Postgres DB):
 
-    docker-compose up --build --force-recreate --no-deps
+    docker-compose up --build --force-recreate
+
+## Stop and delete containers:
+
+    docker-compose down
 
 ## Link for quick check:
 
