@@ -34,9 +34,9 @@
 - [ ] Настроить параметры для контейнерной среды
 
 ### 3.2 Настроить Actuator
-- [x] Добавить конфигурацию Actuator endpoints в `application.properties`
-- [x] Настроить exposure endpoints (health, info, metrics)
-- [x] Добавить кастомную информацию в `/actuator/info`
+- [ ] Добавить конфигурацию Actuator endpoints в `application.properties`
+- [ ] Настроить exposure endpoints (health, info, metrics)
+- [ ] Добавить кастомную информацию в `/actuator/info`
 
 ### 3.3 Настройки базы данных
 - [ ] Добавить настройки connection pool (HikariCP)
@@ -176,4 +176,5 @@
 2. Rate limiting (9.3)
 3. API версионирование через заголовки (12.1)
 4. Поддержка нескольких форматов (12.2)
+
 
