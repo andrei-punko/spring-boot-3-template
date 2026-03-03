@@ -3,6 +3,7 @@
 ![Java CI with Maven](https://github.com/andrei-punko/spring-boot-3-template/workflows/Java%20CI%20with%20Maven/badge.svg)
 [![Coverage](.github/badges/jacoco.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
 [![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
 Includes web-server on port 9080 with `/api/v1/articles` endpoint exposed.
 Supports CRUD set of operations and Read with pagination (see usage description below).
@@ -106,3 +107,4 @@ curl -i -X DELETE http://localhost:9080/api/v1/articles/1
 ## Related project
 
 Same project but with usage of Spring Boot 2 available [here](https://github.com/andrei-punko/spring-boot-2-template)
+
