@@ -3,13 +3,14 @@ package by.andd3dfx.templateapp.controller;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.CoreMatchers.notNullValue;
-import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.hasItem;
 import static org.hamcrest.Matchers.hasSize;
 import static org.springframework.http.MediaType.APPLICATION_JSON;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppContextSetup;
@@ -27,6 +28,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.web.context.WebApplicationContext;
 
 @ContextConfiguration(initializers = IntegrationTestInitializer.class)
@@ -80,13 +82,10 @@ class ArticleControllerTest {
                 .author("Some author")
                 .build();
 
-        final String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Article id shouldn't be present"));
+        ), "Article id shouldn't be present");
     }
 
     @Test
@@ -96,13 +95,10 @@ class ArticleControllerTest {
         articleDto.setText("Some text");
         articleDto.setAuthor("Some author");
 
-        final String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Title should be populated"));
+        ), "Title should be populated");
     }
 
     @Test
@@ -113,13 +109,10 @@ class ArticleControllerTest {
         articleDto.setText("Some text");
         articleDto.setAuthor("Some author");
 
-        final String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Title length must be between 1 and 100"));
+        ), "Title length must be between 1 and 100");
     }
 
     @Test
@@ -130,13 +123,10 @@ class ArticleControllerTest {
         articleDto.setText("Some text");
         articleDto.setAuthor("Some author");
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Title length must be between 1 and 100"));
+        ), "Title length must be between 1 and 100");
     }
 
     @Test
@@ -147,13 +137,10 @@ class ArticleControllerTest {
         articleDto.setText("Some text");
         articleDto.setAuthor("Some author");
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Summary length shouldn't be greater than 255"));
+        ), "Summary length shouldn't be greater than 255");
     }
 
     @Test
@@ -164,13 +151,10 @@ class ArticleControllerTest {
                 .author("Some author")
                 .build();
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Text should be populated"));
+        ), "Text should be populated");
     }
 
     @Test
@@ -181,13 +165,10 @@ class ArticleControllerTest {
         articleDto.setText("");
         articleDto.setAuthor("Some author");
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Text length should be 1 at least"));
+        ), "Text length should be 1 at least");
     }
 
     @Test
@@ -197,13 +178,10 @@ class ArticleControllerTest {
         articleDto.setSummary("Some summary value");
         articleDto.setText("Some text");
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Author should be populated"));
+        ), "Author should be populated");
     }
 
     @Test
@@ -215,13 +193,10 @@ class ArticleControllerTest {
         articleDto.setAuthor("Some author");
         articleDto.setDateCreated(LocalDateTime.now());
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("DateCreated shouldn't be populated"));
+        ), "DateCreated shouldn't be populated");
     }
 
     @Test
@@ -233,13 +208,10 @@ class ArticleControllerTest {
         articleDto.setAuthor("Some author");
         articleDto.setDateUpdated(LocalDateTime.now());
 
-        String message = mockMvc.perform(post("/api/v1/articles")
+        expectValidationBadRequest(mockMvc.perform(post("/api/v1/articles")
             .contentType(APPLICATION_JSON)
             .content(json(articleDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("DateUpdated shouldn't be populated"));
+        ), "DateUpdated shouldn't be populated");
     }
 
     @Test
@@ -350,13 +322,10 @@ class ArticleControllerTest {
         articleUpdateDto.setSummary("Some summary value");
         articleUpdateDto.setText("Some text value");
 
-        String message = mockMvc.perform(patch("/api/v1/articles/2")
+        expectValidationBadRequest(mockMvc.perform(patch("/api/v1/articles/2")
             .contentType(APPLICATION_JSON)
             .content(json(articleUpdateDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Only one field should be modified at once"));
+        ), "Only one field should be modified at once");
     }
 
     @Test
@@ -377,13 +346,10 @@ class ArticleControllerTest {
                 .title("")
                 .build();
 
-        String message = mockMvc.perform(patch("/api/v1/articles/2")
+        expectValidationBadRequest(mockMvc.perform(patch("/api/v1/articles/2")
             .contentType(APPLICATION_JSON)
             .content(json(articleUpdateDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Title length must be between 1 and 100"));
+        ), "Title length must be between 1 and 100");
     }
 
     @Test
@@ -392,13 +358,10 @@ class ArticleControllerTest {
                 .title(createStringWithLength(101))
                 .build();
 
-        String message = mockMvc.perform(patch("/api/v1/articles/2")
+        expectValidationBadRequest(mockMvc.perform(patch("/api/v1/articles/2")
             .contentType(APPLICATION_JSON)
             .content(json(articleUpdateDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Title length must be between 1 and 100"));
+        ), "Title length must be between 1 and 100");
     }
 
     @Test
@@ -407,13 +370,10 @@ class ArticleControllerTest {
                 .summary(createStringWithLength(260))
                 .build();
 
-        String message = mockMvc.perform(patch("/api/v1/articles/2")
+        expectValidationBadRequest(mockMvc.perform(patch("/api/v1/articles/2")
             .contentType(APPLICATION_JSON)
             .content(json(articleUpdateDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Summary length shouldn't be greater than 255"));
+        ), "Summary length shouldn't be greater than 255");
     }
 
     @Test
@@ -422,13 +382,18 @@ class ArticleControllerTest {
                 .text("")
                 .build();
 
-        String message = mockMvc.perform(patch("/api/v1/articles/2")
+        expectValidationBadRequest(mockMvc.perform(patch("/api/v1/articles/2")
             .contentType(APPLICATION_JSON)
             .content(json(articleUpdateDto))
-        )
-            .andExpect(status().isBadRequest())
-            .andReturn().getResolvedException().getMessage();
-        assertThat(message, containsString("Text length should be 1 at least"));
+        ), "Text length should be 1 at least");
+    }
+
+    @Test
+    public void unsupportedHttpMethodReturnsProblemBody() throws Exception {
+        mockMvc.perform(put("/api/v1/articles/1"))
+            .andExpect(status().isMethodNotAllowed())
+            .andExpect(jsonPath("$.code", is("METHOD_NOT_ALLOWED")))
+            .andExpect(jsonPath("$.message", notNullValue()));
     }
 
     @Test
@@ -438,6 +403,14 @@ class ArticleControllerTest {
 
         mockMvc.perform(get("/swagger-ui.html"))
                 .andExpect(status().isFound());
+    }
+
+    private void expectValidationBadRequest(ResultActions actions, String messageSubstring) throws Exception {
+        actions
+            .andExpect(status().isBadRequest())
+            .andExpect(jsonPath("$.message", is("Validation failed")))
+            .andExpect(jsonPath("$.code", is("BAD_REQUEST")))
+            .andExpect(jsonPath("$.errors[*].message", hasItem(containsString(messageSubstring))));
     }
 
     private String json(Object o) throws IOException {

@@ -13,15 +13,6 @@
 - [ ] Настроить доступ к Actuator endpoints только для администраторов
 - [ ] Использовать отдельный порт для management endpoints в production
 
-## 2. Обработка ошибок и валидация
-
-### 2.1 Улучшить GlobalExceptionHandler
-В файле `src/main/java/by/andd3dfx/templateapp/error/GlobalExceptionHandler.java`:
-- [ ] Добавить обработку `MethodArgumentNotValidException` для валидации DTO
-- [ ] Добавить обработку `ConstraintViolationException` для валидации параметров
-- [ ] Добавить обработку `HttpRequestMethodNotSupportedException`
-- [ ] Улучшить формат ответов об ошибках (добавить поле с деталями валидации)
-
 ## 3. Конфигурация
 
 ### 3.1 Добавить application-container.properties
@@ -109,9 +100,8 @@
 ## Приоритеты реализации
 
 ### Высокий приоритет
-1. Обработка ошибок валидации (2.1)
-2. Оптимизация Dockerfile (5.1)
-3. Улучшение логирования (4.1)
+1. Оптимизация Dockerfile (5.1)
+2. Улучшение логирования (4.1)
 
 ### Средний приоритет
 1. Добавление Spring Security (1.1)
