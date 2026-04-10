@@ -7,9 +7,9 @@ services:
     ports:
       - "5432:5432"
     environment:
-      POSTGRES_DB: templatedb
-      POSTGRES_USER: template-app-user
-      POSTGRES_PASSWORD: template-app-password
+      POSTGRES_DB: ${POSTGRES_DB:-templatedb}
+      POSTGRES_USER: ${POSTGRES_USER:-template-app-user}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-template-app-password}
 
   service:
     build: ./
@@ -19,9 +19,9 @@ services:
     depends_on:
       - postgres
     environment:
-      DB_URL: 'jdbc:postgresql://postgres:5432/templatedb'
-      DB_USER: template-app-user
-      DB_PASSWORD: template-app-password
+      DB_URL: ${DB_URL:-jdbc:postgresql://postgres:5432/templatedb}
+      DB_USER: ${DB_USER:-template-app-user}
+      DB_PASSWORD: ${DB_PASSWORD:-template-app-password}
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:9080/actuator/health"]
       interval: 1m
