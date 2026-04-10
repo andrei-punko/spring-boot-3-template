@@ -19,17 +19,19 @@ class SomeSpec extends Specification {
     }
 
     def 'Read all articles using pagination'() {
-        when: 'get all articles'
+        when: 'request page 4 with size 2 sorted by id (seed data has ids 1–10)'
         def response = restClient.get(
                 path: '/api/v1/articles',
-                query: [size: '2', page: '4', sort: 'author,DESC']
+                query: [size: '2', page: '4', sort: 'id,asc']
         )
 
         then: 'server returns 200 code (ok)'
         assert response.status == 200
-        and: 'got 2 records'
+        and: 'last page has articles with id 9 and 10 from Flyway seed'
         assert response.responseData.content.size() == 2
+        assert response.responseData.content*.id == [9, 10]
         assert response.responseData.content[0].title == 'Отечник'
+        assert response.responseData.content[1].title == 'Душеполезные поучения'
     }
 
     def 'Read particular article'() {
@@ -102,10 +104,24 @@ class SomeSpec extends Specification {
     }
 
     def 'Update an article'() {
-        when: 'update title of an article with id=2'
+        given: 'a fresh article (no dependency on fixed seed id)'
+        def id
+        def createResponse = restClient.post(
+                path: '/api/v1/articles',
+                body: [
+                        title  : generateRandomString(12),
+                        summary: generateRandomString(12),
+                        text   : 'Body for patch test',
+                        author : 'FuncTest Author'
+                ],
+                requestContentType: 'application/json'
+        )
+        id = createResponse.responseData.id
+
+        when: 'patch title only'
         def newTitle = generateRandomString(10)
         def response = restClient.patch(
-                path: '/api/v1/articles/2',
+                path: "/api/v1/articles/$id",
                 body: [title: newTitle],
                 requestContentType: 'application/json'
         )
@@ -113,12 +129,18 @@ class SomeSpec extends Specification {
         then: 'got 200 status'
         assert response.status == 200
 
-        and: 'read an article'
-        def getResponse = restClient.get(path: '/api/v1/articles/2')
-        and: 'got 200 status'
+        and: 'read back shows new title'
+        def getResponse = restClient.get(path: "/api/v1/articles/$id")
         assert getResponse.status == 200
-        and: 'got article title equals to new value'
         assert getResponse.responseData.title == newTitle
+
+        cleanup:
+        if (id != null) {
+            try {
+                restClient.delete(path: "/api/v1/articles/$id")
+            } catch (ignored) {
+            }
+        }
     }
 
     private String generateRandomString(int count) {
