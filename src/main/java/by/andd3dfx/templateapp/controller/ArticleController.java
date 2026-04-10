@@ -1,5 +1,6 @@
 package by.andd3dfx.templateapp.controller;
 
+import by.andd3dfx.templateapp.api.ApiPaths;
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
 import by.andd3dfx.templateapp.dto.PaginationParams;
@@ -31,7 +32,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/articles")
+@RequestMapping(ApiPaths.ARTICLES)
 public class ArticleController {
 
     private final IArticleService articleService;
