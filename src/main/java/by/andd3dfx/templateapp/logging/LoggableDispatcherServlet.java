@@ -3,7 +3,6 @@ package by.andd3dfx.templateapp.logging;
 import by.andd3dfx.templateapp.logging.dto.LogMessage;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.servlet.DispatcherServlet;
 import org.springframework.web.servlet.HandlerExecutionChain;
@@ -12,6 +11,7 @@ import org.springframework.web.util.ContentCachingResponseWrapper;
 import org.springframework.web.util.WebUtils;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 
 /**
  * According to: https://stackoverflow.com/questions/33744875/spring-boot-how-to-log-all-requests-and-responses-with-exceptions-in-single-pl
@@ -53,14 +53,16 @@ public class LoggableDispatcherServlet extends DispatcherServlet {
         return msg;
     }
 
-    @SneakyThrows
+    /**
+     * JSON is UTF-8; in {@code finally} the wrapper often still reports ISO-8859-1 via {@link HttpServletResponse#getCharacterEncoding()}.
+     */
     private String getResponsePayload(HttpServletResponse response) {
         ContentCachingResponseWrapper wrapper = WebUtils.getNativeResponse(response, ContentCachingResponseWrapper.class);
         if (wrapper != null) {
             byte[] buf = wrapper.getContentAsByteArray();
             if (buf.length > 0) {
                 int length = Math.min(buf.length, 5120);
-                return new String(buf, 0, length, wrapper.getCharacterEncoding());
+                return new String(buf, 0, length, StandardCharsets.UTF_8);
             }
         }
         return "[unknown]";
