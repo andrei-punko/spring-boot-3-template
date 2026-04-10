@@ -2,18 +2,20 @@ package by.andd3dfx.templateapp.controller;
 
 import by.andd3dfx.templateapp.dto.ArticleDto;
 import by.andd3dfx.templateapp.dto.ArticleUpdateDto;
+import by.andd3dfx.templateapp.dto.PaginationParams;
 import by.andd3dfx.templateapp.service.IArticleService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springdoc.core.annotations.ParameterObject;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Slice;
-import org.springframework.data.web.PageableDefault;
+import org.springframework.data.domain.Sort;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.annotation.Validated;
@@ -62,7 +64,6 @@ public class ArticleController {
     @GetMapping("/{id}")
     public ArticleDto readArticle(
             @Parameter(description = "Article's id")
-            @NotNull
             @PathVariable("id") Long id
     ) {
         return articleService.read(id);
@@ -81,7 +82,6 @@ public class ArticleController {
     @PatchMapping("/{id}")
     public ArticleDto updateArticle(
             @Parameter(description = "Article's id")
-            @NotNull
             @PathVariable("id") Long id,
             @Parameter(description = "Updated fields of article")
             @Validated
@@ -102,7 +102,6 @@ public class ArticleController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteArticle(
             @Parameter(description = "Article's id")
-            @NotNull
             @PathVariable("id") Long id
     ) {
         articleService.delete(id);
@@ -116,11 +115,10 @@ public class ArticleController {
     })
     @GetMapping
     public Slice<ArticleDto> readArticlesPaged(
-            @ParameterObject
-            @PageableDefault(size = 50)
-            @SortDefault(sort = "title")
-            Pageable pageable
+            @Valid @ParameterObject PaginationParams pagination,
+            @SortDefault(sort = "title") Sort sort
     ) {
+        Pageable pageable = PageRequest.of(pagination.getPage(), pagination.getSize(), sort);
         return articleService.getAll(pageable);
     }
 }

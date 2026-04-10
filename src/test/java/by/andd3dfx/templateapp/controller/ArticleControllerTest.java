@@ -273,6 +273,27 @@ class ArticleControllerTest {
     }
 
     @Test
+    public void readArticlesRejectsNegativePage() throws Exception {
+        expectValidationBadRequest(mockMvc.perform(get("/api/v1/articles")
+            .param("page", "-1")
+            .contentType(APPLICATION_JSON)), "greater than or equal to 0");
+    }
+
+    @Test
+    public void readArticlesRejectsZeroPageSize() throws Exception {
+        expectValidationBadRequest(mockMvc.perform(get("/api/v1/articles")
+            .param("size", "0")
+            .contentType(APPLICATION_JSON)), "greater than or equal to 1");
+    }
+
+    @Test
+    public void readArticlesRejectsPageSizeAboveMax() throws Exception {
+        expectValidationBadRequest(mockMvc.perform(get("/api/v1/articles")
+            .param("size", "101")
+            .contentType(APPLICATION_JSON)), "less than or equal to 100");
+    }
+
+    @Test
     public void updateArticleTitle() throws Exception {
         ArticleUpdateDto articleUpdateDto = ArticleUpdateDto.builder()
                 .title("Some tittle value")
