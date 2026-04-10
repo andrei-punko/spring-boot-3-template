@@ -1,5 +1,3 @@
-version: "3"
-
 services:
   postgres:
     image: postgres:16-alpine
@@ -10,6 +8,16 @@ services:
       POSTGRES_DB: ${POSTGRES_DB:-templatedb}
       POSTGRES_USER: ${POSTGRES_USER:-template-app-user}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-template-app-password}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - template-app
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+      start_period: 10s
 
   service:
     build: ./
@@ -17,13 +25,23 @@ services:
     ports:
       - "9080:9080"
     depends_on:
-      - postgres
+      postgres:
+        condition: service_healthy
     environment:
       DB_URL: ${DB_URL:-jdbc:postgresql://postgres:5432/templatedb}
       DB_USER: ${DB_USER:-template-app-user}
       DB_PASSWORD: ${DB_PASSWORD:-template-app-password}
+    networks:
+      - template-app
     healthcheck:
       test: ["CMD", "curl", "-fsS", "http://127.0.0.1:9080/actuator/health"]
       interval: 1m
       timeout: 10s
       retries: 3
+
+networks:
+  template-app:
+    driver: bridge
+
+volumes:
+  postgres_data:
