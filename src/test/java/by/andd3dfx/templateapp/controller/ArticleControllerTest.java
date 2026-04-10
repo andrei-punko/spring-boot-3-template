@@ -229,9 +229,8 @@ class ArticleControllerTest {
 
     @Test
     public void deleteAbsentArticle() throws Exception {
-        mockMvc.perform(delete(ApiPaths.articleById(9999))
-            .contentType(APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+        expectNotFound(mockMvc.perform(delete(ApiPaths.articleById(9999))
+            .contentType(APPLICATION_JSON)), 9999L);
     }
 
     @Test
@@ -245,9 +244,8 @@ class ArticleControllerTest {
 
     @Test
     public void readAbsentArticle() throws Exception {
-        mockMvc.perform(get(ApiPaths.articleById(345))
-            .contentType(APPLICATION_JSON))
-            .andExpect(status().isNotFound());
+        expectNotFound(mockMvc.perform(get(ApiPaths.articleById(345))
+            .contentType(APPLICATION_JSON)), 345L);
     }
 
     @Test
@@ -360,10 +358,9 @@ class ArticleControllerTest {
                 .title("q")
                 .build();
 
-        mockMvc.perform(patch(ApiPaths.articleById(123))
+        expectNotFound(mockMvc.perform(patch(ApiPaths.articleById(123))
             .contentType(APPLICATION_JSON)
-            .content(json(articleUpdateDto)))
-            .andExpect(status().isNotFound());
+            .content(json(articleUpdateDto))), 123L);
     }
 
     @Test
@@ -419,7 +416,8 @@ class ArticleControllerTest {
         mockMvc.perform(put(ApiPaths.articleById(1)))
             .andExpect(status().isMethodNotAllowed())
             .andExpect(jsonPath("$.code", is("METHOD_NOT_ALLOWED")))
-            .andExpect(jsonPath("$.message", notNullValue()));
+            .andExpect(jsonPath("$.message", notNullValue()))
+            .andExpect(jsonPath("$.timestamp", notNullValue()));
     }
 
     @Test
@@ -524,7 +522,16 @@ class ArticleControllerTest {
             .andExpect(status().isBadRequest())
             .andExpect(jsonPath("$.message", is("Validation failed")))
             .andExpect(jsonPath("$.code", is("BAD_REQUEST")))
+            .andExpect(jsonPath("$.timestamp", notNullValue()))
             .andExpect(jsonPath("$.errors[*].message", hasItem(containsString(messageSubstring))));
+    }
+
+    private void expectNotFound(ResultActions actions, long articleId) throws Exception {
+        actions
+            .andExpect(status().isNotFound())
+            .andExpect(jsonPath("$.code", is("NOT_FOUND")))
+            .andExpect(jsonPath("$.message", is("Could not find an article by id=" + articleId)))
+            .andExpect(jsonPath("$.timestamp", notNullValue()));
     }
 
     private String json(Object o) throws IOException {
