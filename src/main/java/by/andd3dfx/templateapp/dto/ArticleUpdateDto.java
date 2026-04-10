@@ -17,6 +17,9 @@ import lombok.NoArgsConstructor;
 @Data
 @JsonInclude(Include.NON_NULL)
 @OnlyOneFieldModified
+@Schema(
+        description = "Patch body: set exactly one of title, summary, or text",
+        example = "{\"title\":\"Updated title\"}")
 public class ArticleUpdateDto {
 
     @Size(min = 1, max = 100, message = "Title length must be between 1 and 100")

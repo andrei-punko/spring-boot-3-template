@@ -18,6 +18,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 @Data
 @JsonInclude(Include.NON_NULL)
+@Schema(
+        description = "Article payload for create (id and timestamps must be absent)",
+        example = "{\"title\":\"Spring Boot tips\",\"summary\":\"Short intro\",\"text\":\"Long article body.\",\"author\":\"jdoe\"}")
 public class ArticleDto {
 
     @Null(message = "Article id shouldn't be present")

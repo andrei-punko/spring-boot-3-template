@@ -5,8 +5,37 @@
 [![Branches](.github/badges/branches.svg)](https://github.com/andrei-punko/spring-boot-3-template/actions/workflows/maven.yml)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 
-Includes web-server on port 9080 with `/api/v1/articles` endpoint exposed.
-Supports CRUD set of operations and Read with pagination (see usage description below).
+Includes web-server on port **9080** with REST API under **`/api/v1`** (articles CRUD and paged list). OpenAPI/Swagger describes request/response examples and error shapes.
+
+## Security
+
+The app ships **without Spring Security** on REST APIs—fine for local development only.
+
+- Pass database credentials via **environment variables** (never commit real secrets). For Compose, use `.env` from `.env.example`.
+- **Actuator** endpoints (`health`, `info`, `metrics`) share the same port; tighten exposure in production (`RECOMMENDATIONS.md`).
+- Plan **authentication** (e.g. Spring Security or API gateway) before any public deployment.
+
+## Configuration and environment variables
+
+| Variable | Purpose |
+|----------|---------|
+| `DB_URL` | JDBC URL (required when using Postgres) |
+| `DB_USER` | Database user |
+| `DB_PASSWORD` | Database password |
+| `logging.file.path` | Log directory (default `logs`; see `logback-spring.xml`) |
+
+Spring profile **`dev`** selects in-memory **H2** (`application-dev.properties`). Default `application.properties` expects Postgres-related variables.
+
+## Deployment
+
+1. **Runnable JAR:** `mvn clean package`, then run `java -jar target/spring-boot-3-template-0.0.1-SNAPSHOT.jar` with the right profile and `DB_*` (or `--spring.profiles.active=dev` for H2).
+2. **Docker image:** `docker build ./ -t backend-template-app` (the build expects `target/*.jar` to exist—run `mvn package` first).
+3. **Docker Compose:** `docker-compose up --build` brings up Postgres and the service with healthchecks and optional `.env`.
+
+## OpenAPI (Swagger)
+
+- UI: http://localhost:9080/swagger-ui.html  
+- JSON: http://localhost:9080/v3/api-docs  
 
 ## Prerequisites:
 
@@ -67,10 +96,6 @@ Use [run.bat](./run.bat) script
 ## Link for quick check:
 
     http://localhost:9080/api/v1/articles
-
-## Swagger documentation:
-
-    http://localhost:9080/swagger-ui.html
 
 ## Useful CURL commands
 
