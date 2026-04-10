@@ -28,11 +28,6 @@
 - [ ] Создать `src/main/resources/application-container.properties` для Docker профиля
 - [ ] Настроить параметры для контейнерной среды
 
-### 3.2 Настроить Actuator
-- [ ] Добавить конфигурацию Actuator endpoints в `application.properties`
-- [ ] Настроить exposure endpoints (health, info, metrics)
-- [ ] Добавить кастомную информацию в `/actuator/info`
-
 ### 3.3 Настройки базы данных
 - [ ] Добавить настройки connection pool (HikariCP)
 - [ ] Настроить параметры для production (timeout, pool size)
@@ -73,7 +68,6 @@
 
 ### 6.2 Улучшить health checks
 - [ ] Добавить кастомные health indicators для БД
-- [ ] Настроить readiness и liveness probes
 
 ## 7. Тестирование
 
@@ -154,9 +148,8 @@
 
 ### Высокий приоритет
 1. Обработка ошибок валидации (2.1)
-2. Настройка Actuator (3.2)
-3. Оптимизация Dockerfile (5.1)
-4. Улучшение логирования (4.1)
+2. Оптимизация Dockerfile (5.1)
+3. Улучшение логирования (4.1)
 
 ### Средний приоритет
 1. Добавление Spring Security (1.1)
