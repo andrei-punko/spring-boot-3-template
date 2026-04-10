@@ -6,36 +6,6 @@
 
 Includes web-server on port **9080** with REST API under **`/api/v1`** (articles CRUD and paged list). OpenAPI/Swagger describes request/response examples and error shapes.
 
-## Security
-
-The app ships **without Spring Security** on REST APIs—fine for local development only.
-
-- Pass database credentials via **environment variables** (never commit real secrets). For Compose, use `.env` from `.env.example`.
-- **Actuator** endpoints (`health`, `info`, `metrics`) share the same port; tighten exposure in production (`RECOMMENDATIONS.md`).
-- Plan **authentication** (e.g. Spring Security or API gateway) before any public deployment.
-
-## Configuration and environment variables
-
-| Variable | Purpose |
-|----------|---------|
-| `DB_URL` | JDBC URL (required when using Postgres) |
-| `DB_USER` | Database user |
-| `DB_PASSWORD` | Database password |
-| `logging.file.path` | Log directory (default `logs`; see `logback-spring.xml`) |
-
-Spring profile **`dev`** selects in-memory **H2** (`application-dev.properties`). Default `application.properties` expects Postgres-related variables.
-
-## Deployment
-
-1. **Runnable JAR:** `mvn clean package`, then run `java -jar target/spring-boot-3-template-0.0.1-SNAPSHOT.jar` with the right profile and `DB_*` (or `--spring.profiles.active=dev` for H2).
-2. **Docker image:** `docker build ./ -t backend-template-app` (the build expects `target/*.jar` to exist—run `mvn package` first).
-3. **Docker Compose:** `docker-compose up --build` brings up Postgres and the service with healthchecks and optional `.env`.
-
-## OpenAPI (Swagger)
-
-- UI: http://localhost:9080/swagger-ui.html  
-- JSON: http://localhost:9080/v3/api-docs  
-
 ## Prerequisites:
 
 - Maven 3
@@ -94,7 +64,9 @@ Use [run.bat](./run.bat) script
 
 ## Link for quick check:
 
-    http://localhost:9080/api/v1/articles
+- Articles: http://localhost:9080/api/v1/articles  
+- Swagger UI: http://localhost:9080/swagger-ui.html  
+- OpenAPI JSON: http://localhost:9080/v3/api-docs  
 
 ## Useful CURL commands
 
@@ -128,7 +100,27 @@ curl -i 'http://localhost:9080/api/v1/articles?size=2&page=4&sort=author,DESC'
 curl -i -X DELETE http://localhost:9080/api/v1/articles/1
 ```
 
+## Configuration and environment variables
+
+| Variable | Purpose |
+|----------|---------|
+| `DB_URL` | JDBC URL (required when using Postgres) |
+| `DB_USER` | Database user |
+| `DB_PASSWORD` | Database password |
+| `logging.file.path` | Log directory (default `logs`; see `logback-spring.xml`) |
+
+Spring profile **`dev`** selects in-memory **H2** (`application-dev.properties`). Default `application.properties` expects Postgres-related variables.
+
+## Deployment
+
+1. **Runnable JAR:** `mvn clean package`, then run `java -jar target/spring-boot-3-template-0.0.1-SNAPSHOT.jar` with the right profile and `DB_*` (or `--spring.profiles.active=dev` for H2).
+2. **Docker image:** `docker build ./ -t backend-template-app` (the build expects `target/*.jar` to exist—run `mvn package` first).
+3. **Docker Compose:** `docker-compose up --build` brings up Postgres and the service with healthchecks and optional `.env`.
+
+## Security (production)
+
+REST APIs ship **without Spring Security**—suitable for local development only. Before a public deployment, add authentication (e.g. Spring Security or an API gateway), keep secrets in environment variables (see `.env.example` for Compose), and restrict Actuator in production (`RECOMMENDATIONS.md`).
+
 ## Related project
 
 Same project but with usage of Spring Boot 2 available [here](https://github.com/andrei-punko/spring-boot-2-template)
-
