@@ -6,6 +6,9 @@ import jakarta.validation.ConstraintValidator;
 import jakarta.validation.ConstraintValidatorContext;
 import java.lang.reflect.Field;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 public class OnlyOneFieldModifiedValidator implements ConstraintValidator<OnlyOneFieldModified, ArticleUpdateDto> {
 
     @Override
@@ -19,7 +22,8 @@ public class OnlyOneFieldModifiedValidator implements ConstraintValidator<OnlyOn
                     count++;
                 }
             } catch (IllegalAccessException e) {
-                e.printStackTrace();
+                log.warn("Cannot read field {} for validation", field.getName(), e);
+                return false;
             }
         }
         return count == 1;

@@ -56,7 +56,11 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     private ResponseEntity<ExceptionResponse> buildResponseEntity(Exception ex, HttpStatus httpStatus) {
         var body = new ExceptionResponse(ex.getMessage(), httpStatus.name(), LocalDateTime.now());
-        log.error("Error happens: {}", body);
+        if (httpStatus == HttpStatus.UNAUTHORIZED || httpStatus == HttpStatus.NOT_FOUND) {
+            log.warn("Client error: {}", body);
+        } else {
+            log.error("Error happens: {}", body, ex);
+        }
         return ResponseEntity
                 .status(httpStatus)
                 .body(body);
