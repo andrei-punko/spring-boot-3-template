@@ -1,140 +1,170 @@
 {
 	"info": {
 		"_postman_id": "8f44827c-097a-4b45-9636-41322ec795bb",
-		"name": "Articles app",
+		"name": "Spring Boot 3 Template — Articles API",
+		"description": "Запросы к `ArticleController`: базовый путь `/api/v1/articles`. Создание — `ArticleDto` (без id и дат). Обновление — `ArticleUpdateDto`: ровно одно из полей `title`, `summary`, `text`. Пагинация: `page` (с 0), `size` (1–100, по умолчанию 50), `sort` (например `title,asc`, `author,DESC`).",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "1701433"
 	},
+	"variable": [
+		{
+			"key": "article-id",
+			"value": "1"
+		}
+	],
 	"item": [
 		{
-			"name": "New article addition",
-			"request": {
-				"method": "POST",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"title\": \"Some tittle\", \"text\": \"Some text\", \"author\": \"Pushkin\" }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
-				},
-				"url": {
-					"raw": "{{service-url}}/api/v1/articles",
-					"host": [
-						"{{service-url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"articles"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get article",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{service-url}}/api/v1/articles/1",
-					"host": [
-						"{{service-url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"articles",
-						"1"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Get articles with pagination",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "{{service-url}}/api/v1/articles?size=2&page=4&sort=author,DESC",
-					"host": [
-						"{{service-url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"articles"
-					],
-					"query": [
-						{
-							"key": "size",
-							"value": "2"
+			"name": "Articles",
+			"item": [
+				{
+					"name": "Create article",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Spring Boot tips\",\n  \"summary\": \"Short intro\",\n  \"text\": \"Long article body.\",\n  \"author\": \"jdoe\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
-						{
-							"key": "page",
-							"value": "4"
+						"url": {
+							"raw": "{{service-url}}/api/v1/articles",
+							"host": [
+								"{{service-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							]
 						},
-						{
-							"key": "sort",
-							"value": "author,DESC"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Update article",
-			"request": {
-				"method": "PATCH",
-				"header": [],
-				"body": {
-					"mode": "raw",
-					"raw": "{ \"title\": \"Another tittle\" }",
-					"options": {
-						"raw": {
-							"language": "json"
-						}
-					}
+						"description": "201 Created. Поля `title`, `text`, `author` обязательны; `summary` опционально. Не передавайте `id`, `dateCreated`, `dateUpdated`."
+					},
+					"response": []
 				},
-				"url": {
-					"raw": "{{service-url}}/api/v1/articles/2",
-					"host": [
-						"{{service-url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"articles",
-						"2"
-					]
+				{
+					"name": "Get article by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-url}}/api/v1/articles/{{article-id}}",
+							"host": [
+								"{{service-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								"{{article-id}}"
+							]
+						},
+						"description": "200 OK или 404, если статья не найдена."
+					},
+					"response": []
+				},
+				{
+					"name": "List articles (paginated)",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{service-url}}/api/v1/articles?page=0&size=2&sort=author,DESC",
+							"host": [
+								"{{service-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "0",
+									"description": "Номер страницы, с 0"
+								},
+								{
+									"key": "size",
+									"value": "2",
+									"description": "Размер страницы, 1–100 (по умолчанию на сервере 50)"
+								},
+								{
+									"key": "sort",
+									"value": "author,DESC",
+									"description": "Если не указан — сортировка по `title` по возрастанию"
+								}
+							]
+						},
+						"description": "Возвращает `Slice<ArticleDto>` (Spring Data)."
+					},
+					"response": []
+				},
+				{
+					"name": "Update article (PATCH)",
+					"request": {
+						"method": "PATCH",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"title\": \"Updated title\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{service-url}}/api/v1/articles/{{article-id}}",
+							"host": [
+								"{{service-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								"{{article-id}}"
+							]
+						},
+						"description": "В теле должно быть задано ровно одно из: `title`, `summary`, `text` (валидация `@OnlyOneFieldModified`). 200 OK, 400 или 404."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete article",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{service-url}}/api/v1/articles/{{article-id}}",
+							"host": [
+								"{{service-url}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"articles",
+								"{{article-id}}"
+							]
+						},
+						"description": "204 No Content при успехе; 404, если ресурса нет."
+					},
+					"response": []
 				}
-			},
-			"response": []
-		},
-		{
-			"name": "Deletion of article",
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "{{service-url}}/api/v1/articles/1",
-					"host": [
-						"{{service-url}}"
-					],
-					"path": [
-						"api",
-						"v1",
-						"articles",
-						"1"
-					]
-				}
-			},
-			"response": []
+			]
 		}
 	]
 }
