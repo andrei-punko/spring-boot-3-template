@@ -121,6 +121,10 @@ Spring profile **`dev`** selects in-memory **H2** (`application-dev.properties`)
 
 REST APIs ship **without Spring Security**—suitable for local development only. Before a public deployment, add authentication (e.g. Spring Security or an API gateway), keep secrets in environment variables (see `.env.example` for Compose), and restrict Actuator in production (`RECOMMENDATIONS.md`).
 
+## Video with project description
+
+[![YouTube link](https://markdown-videos-api.jorgenkh.no/url?url=https%3A%2F%2Fyoutu.be%2Fh18Q1iYyg3M)](https://youtu.be/h18Q1iYyg3M)
+
 ## Related project
 
-Same project but with usage of Spring Boot 2 available [here](https://github.com/andrei-punko/spring-boot-2-template)
+The same project but with usage of Spring Boot 2 available [here](https://github.com/andrei-punko/spring-boot-2-template)
